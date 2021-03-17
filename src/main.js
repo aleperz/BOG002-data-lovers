@@ -1,16 +1,17 @@
-import { filterData, anotherExample } from './data.js';
+import { filterData/* , anotherExample */ } from './data.js';
 
 //Despliegue de subitems en barra lateral de filtrado
-let options = document.querySelectorAll(".options_filterContainer")
+let options = document.querySelectorAll(".deploy-but")
 options.forEach(item => {
     item.addEventListener("click", () => {
-    item.querySelector('.chosen').toggleAttribute('hidden')     
+    let parentDeploy = item.parentElement
+    parentDeploy.querySelector('.chosen').toggleAttribute('hidden')     
 })})
+
 
 import data from './data/rickandmorty/rickandmorty.js';
 
-//creando opciones de filtrado 
-
+//creando UL para crear dentro las opciones de filtrado 
 let newUl;
 let chosen = document.querySelectorAll(".chosen");
 chosen.forEach(item => {
@@ -76,7 +77,7 @@ uniqueSpecies.forEach(item => {
 speciesParent.append(...containerSpecies);
 
 //Mostrando en pantalla todos los personajes
-let cardContainer = [];
+/* let cardContainer = [];
 let filterSection = document.querySelector(".filterSection")
 data.results.forEach(item => {
     let cardCharacter = document.createElement("div")
@@ -87,7 +88,38 @@ data.results.forEach(item => {
     cardCharacter.append(cardImage, cardTitle)
     cardContainer.push(cardCharacter)
 })
+filterSection.append(...cardContainer) */
+
+
+let inputs = document.querySelectorAll("input")
+inputs.forEach(item => {
+    item.addEventListener("click",(event) =>{
+        console.log(event.target)
+        if(event.target){
+            let condicion = event.target.value
+    let filtroprueba = filterData(data,condicion)
+    console.log(filtroprueba)
+    //visualizando personajes filtrados
+    let cardContainer = [];
+let filterSection = document.querySelector(".filterSection")
+    filtroprueba.forEach(item => {
+    let cardCharacter = document.createElement("div")
+    let  cardTitle = document.createElement("span")
+    cardTitle.textContent = item.name
+    let cardImage = document.createElement("img")
+    cardImage.src = item.image
+    cardCharacter.append(cardImage, cardTitle)
+    cardContainer.push(cardCharacter)
+})
 filterSection.append(...cardContainer)
+}})})
+
+
+
+
+//FUNCION DE FILTRADO
+/* let filtroprueba = filterData(data,"Female")
+console.log(filtroprueba) ; */
 
 //Mostrando los valores unicos de episodes
 /* const episodes = []    
