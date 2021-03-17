@@ -4,11 +4,28 @@ body{
     margin-top: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+:root{
+    --verdeRM: #82C826;
+    --verdeazulOscuroRM: #264A48;
+    --grisRM: #CFDAD2;
+    --cafeRM: #894B3D;
+    --amarilloRM: #EAD854;
+    --cafeclaroRM: #B49889;
+    --azuloscuroRM: #2A4A65;
+    --vinotintoRM: #893740;
+    --ocreRM: #AC7B2C;
+    --azulgrisRM: #C0DAE4;
+}
+main{
+    display: flex;
+    flex-direction: row;
+}
 aside{
     width: 220px;
     background-color: #2A4A65;
     color: white;
-    padding-left: 20px;
+    padding:20px 30px 10px 10px;
+    height: 700px;
 }
 .filterContainer{
     margin-top: 20px;
@@ -40,4 +57,36 @@ li img{
 }
 .filterContainer .options_filterContainer:last-child ul{
     margin-bottom: 0;
+}
+
+.filterSection{
+    background-color: gray;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.filterSection div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 2px 4px 2px;
+    width: 150px;
+    height: 190px;
+    border: 1px solid black;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: var(--azuloscuroRM);
+}
+.filterSection div img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 25px;
+    border-radius: 5px 5px 0px 0px;
+}
+.filterSection div span{
+    font-size: 16px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-family: 'Ubuntu', sans-serif;
 }

@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <title>Data Lovers</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
   </head>
   <body>
     <main>
@@ -14,25 +16,15 @@
             <div class="deploy-but"  id="deploy-buttonGender">
               <span>Gender</span><img src="/Assets/arrow.svg" alt="">
             </div>
-            <div class="chosen" hidden>             
-              <ul>
-                <li><label for=""><input type="checkbox" name="" id="" />Male</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Female</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Unknown</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Genderless</label></li> 
-              </ul>
+            <div id="genderOptions" class="chosen" hidden>
             </div>
           </li>
           <li class="options_filterContainer">
             <div class="deploy-but" id="deploy-buttonStatus">
               <span>Status</span><img src="/Assets/arrow.svg" alt="">
             </div>
-            <div class="chosen" hidden>             
-              <ul>
-                <li><label for=""><input type="checkbox" name="" id="" />Male</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Female</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Unknown</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Genderless</label></li> 
+            <div id="statusOptions" class="chosen" hidden>             
+              <ul>                
               </ul>
             </div>
           </li>
@@ -40,51 +32,8 @@
             <div class="deploy-but" id="deploy-buttonSpecies">
               <span>Species</span><img src="/Assets/arrow.svg" alt="">
             </div>
-            <div class="chosen" hidden>             
-              <ul>
-                <li><label for=""><input type="checkbox" name="" id="" />Male</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Female</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Unknown</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Genderless</label></li> 
-              </ul>
-            </div>
-          </li>
-          <li class="options_filterContainer">
-            <div class="deploy-but" id="deploy-buttonType">
-              <span>Type</span><img src="/Assets/arrow.svg" alt="">
-            </div>
-            <div class="chosen" hidden>             
-              <ul>
-                <li><label for=""><input type="checkbox" name="" id="" />Male</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Female</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Unknown</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Genderless</label></li> 
-              </ul>
-            </div>
-          </li>
-          <li class="options_filterContainer">
-            <div class="deploy-but" id="deploy-buttonOrigin">
-              <span>Origin</span><img src="/Assets/arrow.svg" alt="">
-            </div>
-            <div class="chosen" hidden>             
-              <ul>
-                <li><label for=""><input type="checkbox" name="" id="" />Male</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Female</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Unknown</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Genderless</label></li> 
-              </ul>
-            </div>
-          </li>
-          <li class="options_filterContainer">
-            <div class="deploy-but" id="deploy-buttonLocation">
-              <span>Location</span><img src="/Assets/arrow.svg" alt="">
-            </div>
-            <div class="chosen" hidden>             
-              <ul>
-                <li><label for=""><input type="checkbox" name="" id="" />Male</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Female</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Unknown</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Genderless</label></li> 
+            <div id="speciesOptions" class="chosen" hidden>             
+              <ul>                
               </ul>
             </div>
           </li>
@@ -92,17 +41,16 @@
             <div class="deploy-but" id="deploy-buttonEpisode">
               <span>Episode</span><img src="/Assets/arrow.svg" alt="">
             </div>
-            <div class="chosen" hidden>             
+            <div id="episodeOptions" class="chosen" hidden>             
               <ul>
-                <li><label for=""><input type="checkbox" name="" id="" />Male</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Female</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Unknown</label></li>
-                <li><label for=""><input type="checkbox" name="" id="" />Genderless</label></li> 
               </ul>
             </div>
           </li>
         </ul>
       </aside>
+      <section class="filterSection">
+
+      </section>
     </main>
     <script src="main.js" type="module"></script>
   </body>

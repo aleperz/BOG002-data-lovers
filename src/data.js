@@ -1,9 +1,5 @@
-// estas funciones son de ejemplo
-
-export const example = () => {
+export const filterData = (data, condition) => {
+  data.result
   return 'example';
 };
 
-export const anotherExample = () => {
-  return 'OMG';
-};
