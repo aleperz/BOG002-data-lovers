@@ -1,11 +1,13 @@
 export const filterData = (data, condition) => {
   let arrayFilter = []
-  data.results.filter(item =>{   
-    let encounter
-    let charValues = Object.values(item)
-    charValues.forEach(subitem =>{         
-    if(subitem === condition){
-      encounter = true }})       
+  data.results.filter(item =>{     
+    let charEntries = Object.entries(item)
+    let yaya = []
+    charEntries.forEach(subitem =>{
+      yaya.push(subitem.join())
+    })   
+    console.log(yaya)  
+    let encounter = yaya.includes(condition)       
     if(encounter){
     arrayFilter.push(item)
     }

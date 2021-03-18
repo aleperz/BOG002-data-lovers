@@ -19,13 +19,13 @@ chosen.forEach(item => {
     item.append(newUl)
 }) 
 
-function createOptions(item,container){
+function createOptions(category, item,container){
     let newLi = document.createElement("li")
     let label = document.createElement("label")
     let textContent = document.createTextNode(item);
     let inputCheck = document.createElement("input")
     inputCheck.setAttribute("type","checkbox")
-    inputCheck.setAttribute("value",item)
+    inputCheck.setAttribute("value", `${category},${item}`)
     label.append(inputCheck)
     newLi.append(label)    
     label.appendChild(textContent)
@@ -42,7 +42,7 @@ let uniqueGender = new Set(gender)
 let containerGender = []
 let genderParent = document.querySelector("div#genderOptions > ul")
 uniqueGender.forEach(item => {
-    createOptions(item,containerGender)
+    createOptions("gender",item,containerGender)
 })
 genderParent.append(...containerGender);
 
@@ -57,7 +57,7 @@ let uniqueStatus = new Set(status)
 let containerStatus = []
 let statusParent = document.querySelector("div#statusOptions > ul")
 uniqueStatus.forEach(item => {
-    createOptions(item, containerStatus)
+    createOptions("status", item, containerStatus)
 })
 statusParent.append(...containerStatus);
 
@@ -72,7 +72,7 @@ let uniqueSpecies = new Set(species)
 let containerSpecies = []
 let speciesParent = document.querySelector("div#speciesOptions > ul")
 uniqueSpecies.forEach(item => {
-    createOptions(item, containerSpecies)
+    createOptions("species", item, containerSpecies)
 })
 speciesParent.append(...containerSpecies);
 
@@ -90,19 +90,55 @@ data.results.forEach(item => {
 })
 filterSection.append(...cardContainer) */
 
+//Boton filtrar
+document.querySelector("#btn").addEventListener("click",() =>{
+    getInputsChecks()
+})
 
-let inputs = document.querySelectorAll("input")
+//FUNCION FILTER Y MOSTRAR PERSONAJES FILTRADOS
+function getInputsChecks(){
+let inputs = document.querySelectorAll('input:checked')
+console.log(...inputs)
+let arrayFinalfinal = []
+let arraysFiltrados = [] 
+let arrayFiltroFinal = [] 
 inputs.forEach(item => {
-    item.addEventListener("click",(event) =>{
-        console.log(event.target)
-        if(event.target){
-            let condicion = event.target.value
-    let filtroprueba = filterData(data,condicion)
-    console.log(filtroprueba)
+            let condicion = []
+            condicion.push(item.value) 
+            console.log(condicion)
+            condicion.forEach(value =>{
+            let filtrodeCondicion = []   
+            filtrodeCondicion = filterData(data,value)
+            console.log(filtrodeCondicion)
+            arraysFiltrados.push(filtrodeCondicion) 
+            })      } )  
+            console.log(arraysFiltrados)  
+            
+            if(arraysFiltrados.length > 1){
+            for(let i = 0; i < arraysFiltrados.length;i++){                
+                let arrayConcat = arraysFiltrados[i].concat(arraysFiltrados[i+1])
+                console.log(arrayConcat)
+                for(let j = 0; j < arrayConcat.length;j++){
+                    for(let l = j+1; l < arrayConcat.length;l++){
+                        if(arrayConcat[j].id == arrayConcat[l].id){
+                            arrayFiltroFinal.push(arrayConcat[l])
+                        }
+                    }
+                   console.log(arrayFiltroFinal) 
+                }
+
+                /* arraysFiltrados[i+1] = arrayFiltroFinal */ 
+                }                                 
+            }
+            else{
+                arrayFiltroFinal = arraysFiltrados
+            }  
+
+    console.log(arrayFinalfinal)
     //visualizando personajes filtrados
-    let cardContainer = [];
-let filterSection = document.querySelector(".filterSection")
-    filtroprueba.forEach(item => {
+    let cardContainer = []
+    let filterSection = document.querySelector(".filterSection")
+    arrayFinalfinal.forEach(item => {
     let cardCharacter = document.createElement("div")
     let  cardTitle = document.createElement("span")
     cardTitle.textContent = item.name
@@ -112,10 +148,13 @@ let filterSection = document.querySelector(".filterSection")
     cardContainer.push(cardCharacter)
 })
 filterSection.append(...cardContainer)
-}})})
+}
 
+//FUNCION FILTRO DEL FILTRO
 
-
+/* let filtro2 = filterData(filtroprueba, condicion)
+let condicion2 = event.target.value 
+if(condicion2 === condicion) */
 
 //FUNCION DE FILTRADO
 /* let filtroprueba = filterData(data,"Female")
