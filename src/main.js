@@ -151,12 +151,17 @@ inputs.forEach(item => {
     let filterSection = document.querySelector(".filterSection")
     filtarray.forEach(item => {
     let cardCharacter = document.createElement("div")
+    cardCharacter.setAttribute("id",item.id)
     let  cardTitle = document.createElement("span")
     cardTitle.textContent = item.name
     let cardImage = document.createElement("img")
     cardImage.src = item.image
     cardCharacter.append(cardImage, cardTitle)
     cardContainer.push(cardCharacter)
+   /*  cardCharacter.addEventListener("click", ()=>{
+        crear tarjeta popup o modal
+        
+    }) */
 })
 filterSection.append(...cardContainer)
 }

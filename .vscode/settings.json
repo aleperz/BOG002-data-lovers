@@ -1,3 +1,4 @@
 {
-    "vscode-pets.petType": "dog"
+    "vscode-pets.petType": "dog",
+    "liveServer.settings.port": 5501
 }
