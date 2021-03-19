@@ -19,7 +19,8 @@ chosen.forEach(item => {
     item.append(newUl)
 }) 
 
-function createOptions(category, item,container){
+//Funcion para crear los elementos en el DOM de opciones unicas por cada categoria
+let createOptions = (category, item,container)=>{
     let newLi = document.createElement("li")
     let label = document.createElement("label")
     let textContent = document.createTextNode(item);
@@ -77,104 +78,52 @@ uniqueSpecies.forEach(item => {
 speciesParent.append(...containerSpecies);
 
 //Mostrando en pantalla todos los personajes
-/* let cardContainer = [];
+/* 
 let filterSection = document.querySelector(".filterSection")
-data.results.forEach(item => {
-    let cardCharacter = document.createElement("div")
-    let  cardTitle = document.createElement("span")
-    cardTitle.textContent = item.name
-    let cardImage = document.createElement("img")
-    cardImage.src = item.image
-    cardCharacter.append(cardImage, cardTitle)
-    cardContainer.push(cardCharacter)
-})
-filterSection.append(...cardContainer) */
+createCharacters(data.results,filterSection) */
 
-//Boton filtrar
+
+//Boton para aplicar los filtros selecionados de los CHECKBOX por el usuario
 document.querySelector("#btn").addEventListener("click",() =>{
-    getInputsChecks()
+    let inputs = document.querySelectorAll('input:checked')
+    console.log(...inputs)   
+    getCharactersFilterOfData(data,inputs)
 })
 
-//FUNCION FILTER Y MOSTRAR PERSONAJES FILTRADOS
-function getInputsChecks(){
-let inputs = document.querySelectorAll('input:checked')
-console.log(...inputs)
-
-let arraysFiltrados = []
-inputs.forEach(item => {
-            let condicion = []
-            condicion.push(item.value) 
-            console.log(condicion)
-            condicion.forEach(value =>{
-            let filtrodeCondicion = []   
-            filtrodeCondicion = filterData(data,value)
-            console.log(filtrodeCondicion)
-            arraysFiltrados.push(filtrodeCondicion) 
-            })      } )  
-            console.log(arraysFiltrados)  
-        
-            let firstArray= []
-            let filtarray =[]
-            if(arraysFiltrados.length > 1){
-                    firstArray = arraysFiltrados[0]
-                    console.log(firstArray)
-            for(let i = 1; i < arraysFiltrados.length;i++){  
-                //en la 1a iter. se concat el primer array con el segundo               
-                let arrayConcat = firstArray.concat(arraysFiltrados[i])
-                //se reinicializa array para que que queden solo los nuevos valores filtrados
-                filtarray = [] 
-                console.log(arrayConcat)
-                //Se evaluan los id de los elementos de los arrays concatenados para extrar los elementos repetidos
-                for(let j = 0; j < arrayConcat.length;j++){
-                    for(let l = j+1; l < arrayConcat.length;l++){
-                        if(arrayConcat[j].id == arrayConcat[l].id){
-                            filtarray.push(arrayConcat[l])
-                            
-                        }
-                    } 
-                }
-                console.log(filtarray)
-                firstArray = filtarray    
-                }                                 
-            }
-            else{
-                arraysFiltrados.forEach(item =>{
-                    item.forEach(subitem =>{
-                        filtarray.push(subitem)
-                    })
-                })
-                console.log(filtarray)
-            }  
-
-     //visualizando personajes filtrados
-    let cardContainer = []
-    let filterSection = document.querySelector(".filterSection")
-    filtarray.forEach(item => {
-    let cardCharacter = document.createElement("div")
-    cardCharacter.setAttribute("id",item.id)
-    let  cardTitle = document.createElement("span")
-    cardTitle.textContent = item.name
-    let cardImage = document.createElement("img")
-    cardImage.src = item.image
-    cardCharacter.append(cardImage, cardTitle)
-    cardContainer.push(cardCharacter)
-   /*  cardCharacter.addEventListener("click", ()=>{
-        crear tarjeta popup o modal
-        
-    }) */
-})
-filterSection.append(...cardContainer)
+ //Función de crear personajes a partir de: 1. la Data filtrada o la Data, 2.indicandole seccion (elemento html) donde se hara el append
+let createCharacters = (filteredData,sectionToAppend) =>{
+    let cardsContainer = []
+    filteredData.forEach(item => {        
+        let cardCharacter = document.createElement("div")
+        cardCharacter.setAttribute("id",item.id)
+        let  cardTitle = document.createElement("span")
+        cardTitle.textContent = item.name
+        let cardImage = document.createElement("img")
+        cardImage.src = item.image
+        cardCharacter.append(cardImage, cardTitle)
+        cardsContainer.push(cardCharacter)
+        cardCharacter.addEventListener("click", ()=>{
+            let containerInfo = document.createElement("div")
+            containerInfo.setAttribute('id',item.id)
+            
+        })
+    })
+    sectionToAppend.append(...cardsContainer)
 }
 
-//FUNCION FILTRO DEL FILTRO
+//FUNCION FILTER Y MOSTRAR PERSONAJES FILTRADOS
+function getCharactersFilterOfData(data, filter){       
 
-/* let filtro2 = filterData(filtroprueba, condicion)
-let condicion2 = event.target.value 
-if(condicion2 === condicion) */
+    //invocamos la función filter data y le pasamos por parametro todas las condiciones 
+    let filtarray = filterData(data,filter)
+    console.log(filtarray)             
 
-//FUNCION DE FILTRADO
-/* let filtroprueba = filterData(data,"Female")
-console.log(filtroprueba) ; */
+     //visualizando personajes filtrados
+    let filterSection = document.querySelector(".filterSection")
+    createCharacters(filtarray,filterSection)
+}
+
+
 
 //Mostrando los valores unicos de episodes
 /* const episodes = []    
@@ -193,35 +142,6 @@ let uniqueEpisodes = new Set(episodes)
 
 //Extrayendo valor del checkbox
 /* let checks = document.querySelectorAll() */
-
-
-
-//Mostrando los valores unicos de type
-/* const type = []    
-data.results.forEach(item =>{
-    type.push(item.type)
-});
-let uniqueType = new Set(type) */
-
-
-
-//Mostrando los valores unicos de origin
-/* const origin = []    
-data.results.forEach(item =>{
-    origin.push(item.origin.name)
-});
-let uniqueOrigin = new Set(origin) */
-
-//Mostrando los valores unicos de location
-/* const location = []    
-data.results.forEach(item =>{
-    location.push(item.location.name)
-});
-let uniqueLocation = new Set(location) */
-
-
-
-
 
 
 /* console.log(example, anotherExample,  */
