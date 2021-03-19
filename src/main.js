@@ -138,11 +138,15 @@ inputs.forEach(item => {
                 }                                 
             }
             else{
-                firstArray = arraysFiltrados
+                arraysFiltrados.forEach(item =>{
+                    item.forEach(subitem =>{
+                        filtarray.push(subitem)
+                    })
+                })
+                console.log(filtarray)
             }  
 
-    console.log(firstArray)
-    //visualizando personajes filtrados
+     //visualizando personajes filtrados
     let cardContainer = []
     let filterSection = document.querySelector(".filterSection")
     filtarray.forEach(item => {
