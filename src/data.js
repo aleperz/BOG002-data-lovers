@@ -5,8 +5,7 @@ export const filterData = (data, condition) => {
     let yaya = []
     charEntries.forEach(subitem =>{
       yaya.push(subitem.join())
-    })   
-    console.log(yaya)  
+    })  
     let encounter = yaya.includes(condition)       
     if(encounter){
     arrayFilter.push(item)

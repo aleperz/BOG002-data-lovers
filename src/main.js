@@ -99,9 +99,8 @@ document.querySelector("#btn").addEventListener("click",() =>{
 function getInputsChecks(){
 let inputs = document.querySelectorAll('input:checked')
 console.log(...inputs)
-let arrayFinalfinal = []
-let arraysFiltrados = [] 
-let arrayFiltroFinal = [] 
+
+let arraysFiltrados = []
 inputs.forEach(item => {
             let condicion = []
             condicion.push(item.value) 
@@ -113,32 +112,40 @@ inputs.forEach(item => {
             arraysFiltrados.push(filtrodeCondicion) 
             })      } )  
             console.log(arraysFiltrados)  
-            
+        
+            let firstArray= []
+            let filtarray =[]
             if(arraysFiltrados.length > 1){
-            for(let i = 0; i < arraysFiltrados.length;i++){                
-                let arrayConcat = arraysFiltrados[i].concat(arraysFiltrados[i+1])
+                    firstArray = arraysFiltrados[0]
+                    console.log(firstArray)
+            for(let i = 1; i < arraysFiltrados.length;i++){  
+                //en la 1a iter. se concat el primer array con el segundo               
+                let arrayConcat = firstArray.concat(arraysFiltrados[i])
+                //se reinicializa array para que que queden solo los nuevos valores filtrados
+                filtarray = [] 
                 console.log(arrayConcat)
+                //Se evaluan los id de los elementos de los arrays concatenados para extrar los elementos repetidos
                 for(let j = 0; j < arrayConcat.length;j++){
                     for(let l = j+1; l < arrayConcat.length;l++){
                         if(arrayConcat[j].id == arrayConcat[l].id){
-                            arrayFiltroFinal.push(arrayConcat[l])
+                            filtarray.push(arrayConcat[l])
+                            
                         }
-                    }
-                   console.log(arrayFiltroFinal) 
+                    } 
                 }
-
-                /* arraysFiltrados[i+1] = arrayFiltroFinal */ 
+                console.log(filtarray)
+                firstArray = filtarray    
                 }                                 
             }
             else{
-                arrayFiltroFinal = arraysFiltrados
+                firstArray = arraysFiltrados
             }  
 
-    console.log(arrayFinalfinal)
+    console.log(firstArray)
     //visualizando personajes filtrados
     let cardContainer = []
     let filterSection = document.querySelector(".filterSection")
-    arrayFinalfinal.forEach(item => {
+    filtarray.forEach(item => {
     let cardCharacter = document.createElement("div")
     let  cardTitle = document.createElement("span")
     cardTitle.textContent = item.name
