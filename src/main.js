@@ -24,9 +24,10 @@ let createOptions = (category, item,container)=>{
     let newLi = document.createElement("li")
     let label = document.createElement("label")
     let textContent = document.createTextNode(item);
-    let inputCheck = document.createElement("input")
-    inputCheck.setAttribute("type","checkbox")
-    inputCheck.setAttribute("value", `${category},${item}`)
+    let inputCheck = document.createElement('input')
+    inputCheck.setAttribute('type','checkbox')
+    inputCheck.setAttribute('data-category',category)
+    inputCheck.setAttribute("value",item)
     label.append(inputCheck)
     newLi.append(label)    
     label.appendChild(textContent)
@@ -83,11 +84,24 @@ let filterSection = document.querySelector(".filterSection")
 createCharacters(data.results,filterSection) */
 
 
+
 //Boton para aplicar los filtros selecionados de los CHECKBOX por el usuario
 document.querySelector("#btn").addEventListener("click",() =>{
     let inputs = document.querySelectorAll('input:checked')
-    console.log(...inputs)   
-    getCharactersFilterOfData(data,inputs)
+    console.log(inputs)
+    
+    let conditionsContainer = [] //conditionsContainer =[[gender,genderless],[status, alive],[species, alien]]
+    inputs.forEach(item => {
+        console.log(inputs)
+        let conditions = []
+        conditions.push(item.dataset.category) 
+        conditions.push(item.value) //conditions =[gender,genderless]
+        conditionsContainer.push(conditions) 
+
+    })
+    console.log(conditionsContainer)
+        let datos = data.results  
+        getCharactersFilterOfData(datos,conditionsContainer)        
 })
 
  //Función de crear personajes a partir de: 1. la Data filtrada o la Data, 2.indicandole seccion (elemento html) donde se hara el append
@@ -105,6 +119,24 @@ let createCharacters = (filteredData,sectionToAppend) =>{
         cardCharacter.addEventListener("click", ()=>{
             let containerInfo = document.createElement("div")
             containerInfo.setAttribute('id',item.id)
+            let imageInfo = document.createElement('img')
+            imageInfo.src = item.image
+            let statusInfo = document.createElement('span')
+            statusInfo.textContent = item.status
+            let nameInfo = document.createElement('span')
+            nameInfo.textContent = item.name
+            let speciesInfo = document.createElement('span')
+            speciesInfo.textContent = item.species
+            let typeInfo = document.createElement('span')
+            typeInfo.textContent = item.type
+            let genderInfo = document.createElement('span')
+            genderInfo.textContent = item.gender
+            let originInfo = document.createElement('span')
+            originInfo.textContent = item.origin.name
+            let locationInfo = document.createElement('span')
+            locationInfo.textContent = item.location.name
+            let createdInfo = document.createElement('span')
+            createdInfo.textContent = item.created
             
         })
     })
@@ -112,15 +144,17 @@ let createCharacters = (filteredData,sectionToAppend) =>{
 }
 
 //FUNCION FILTER Y MOSTRAR PERSONAJES FILTRADOS
-function getCharactersFilterOfData(data, filter){       
+function getCharactersFilterOfData(data, filters){   
 
     //invocamos la función filter data y le pasamos por parametro todas las condiciones 
-    let filtarray = filterData(data,filter)
+    let filtarray = filterData(data,filters)
     console.log(filtarray)             
 
      //visualizando personajes filtrados
     let filterSection = document.querySelector(".filterSection")
-    createCharacters(filtarray,filterSection)
+    if(filtarray){
+        createCharacters(filtarray,filterSection)
+    }
 }
 
 

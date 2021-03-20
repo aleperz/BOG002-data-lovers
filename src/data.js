@@ -1,63 +1,19 @@
 export const filterData = (data, conditions) => {
-  let arraysSemiFiltrados = []
+  //data = datos = data.results
+  //conditions(conditionsContainer) =[[gender,genderless],[status, alive],[species, alien]]
+  if(conditions.length) return data
+  
+  let datafilter = [];
+  let conditionToEvaluate = conditions.shift(); //1:[gender,genderless]||2:[status, alive]||3:
+  //1:conditions = [[status, alive],[species, alien]]
+  //2:conditions = [[species, alien]]
 
-  //Filtro de condiciones iniciales : devuelve un array de arrays que cumplen cada una de las condiciones checkeadas
-conditions.forEach(item => {
-          let condicionValues = []
-          condicionValues.push(item.value) 
-          condicionValues.forEach(value =>{    
-  let arraysFiltrados = []       
-  data.results.filter(item =>{     
-    let charEntries = Object.entries(item)
-    console.log(charEntries)
-    let yaya = []
-    charEntries.forEach(subitem =>{
-      yaya.push(subitem.join())
-    })  
-    let encounter = yaya.includes(value)       
-    if(encounter){
-      arraysFiltrados.push(item)
-    }
-  })
-  arraysSemiFiltrados.push(arraysFiltrados)
-})})
-
-  //Se extrae la intercepcion de los arrays: los elementos que cumplan/tengan en comun todas las condiciones seleccionadas por el usuario
-  let firstArray= []
-  let filtarray =[]
-
-  //Si el usuario solo selecciona una condiciona devolvera el unico array con el primer filtro de esa unica condición
-  console.log(arraysSemiFiltrados)
-  if(arraysSemiFiltrados.length > 1){
-          firstArray = arraysSemiFiltrados[0]
-          console.log(firstArray)
-  for(let i = 1; i < arraysSemiFiltrados.length;i++){  
-
-      //en la 1a iter. se concat el primer array con el segundo               
-      let arrayConcat = firstArray.concat(arraysSemiFiltrados[i])
-
-      //se reinicializa array para que que queden solo los nuevos valores filtrados
-      filtarray = [] 
-      console.log(arrayConcat)
-
-      //Se evaluan los id de los elementos de los arrays concatenados para extrar los elementos repetidos
-      for(let j = 0; j < arrayConcat.length;j++){
-          for(let l = j+1; l < arrayConcat.length;l++){
-              if(arrayConcat[j].id == arrayConcat[l].id){
-                  filtarray.push(arrayConcat[l])
-                  
-              }
-          } 
-      }
-      firstArray = filtarray    
-      }                                 
+  datafilter = data.filter(
+    (subitem) => subitem[conditionToEvaluate[0]] === conditionToEvaluate[1]
+  );
+  console.log(datafilter, conditionToEvaluate)
+  if (conditions.length) {
+    return filterData(datafilter, conditions);
   }
-  else{
-        arraysSemiFiltrados.forEach(item =>{
-          item.forEach(subitem =>{
-              filtarray.push(subitem)
-          })
-      })
-  }
-  return filtarray;
-  };   
+  return datafilter;
+};
