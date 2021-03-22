@@ -1,12 +1,9 @@
 export const filterData = (data, conditions) => {
-  //data = datos = data.results
   //conditions(conditionsContainer) =[[gender,genderless],[status, alive],[species, alien]]
-  if(conditions.length) return data
+  if(!conditions.length) return data
   
   let datafilter = [];
-  let conditionToEvaluate = conditions.shift(); //1:[gender,genderless]||2:[status, alive]||3:
-  //1:conditions = [[status, alive],[species, alien]]
-  //2:conditions = [[species, alien]]
+  let conditionToEvaluate = conditions.shift();
 
   datafilter = data.filter(
     (subitem) => subitem[conditionToEvaluate[0]] === conditionToEvaluate[1]
