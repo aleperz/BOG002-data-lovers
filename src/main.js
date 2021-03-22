@@ -133,24 +133,51 @@ let createCharacters = (filteredData, sectionToAppend) => {
     cardCharacter.addEventListener("click", () => {
       let containerInfo = document.createElement("div");
       containerInfo.setAttribute("id", item.id);
+      containerInfo.classList.add("containerInfo");
       let imageInfo = document.createElement("img");
       imageInfo.src = item.image;
       let statusInfo = document.createElement("span");
-      statusInfo.textContent = item.status;
+      statusInfo.innerHTML = `Status:  ${item.status}`;
       let nameInfo = document.createElement("span");
-      nameInfo.textContent = item.name;
+      nameInfo.textContent = `Name:  ${item.name}`;
       let speciesInfo = document.createElement("span");
-      speciesInfo.textContent = item.species;
+      speciesInfo.textContent = `Specie:  ${item.species}`;
       let typeInfo = document.createElement("span");
-      typeInfo.textContent = item.type;
+      typeInfo.textContent = `Type:  ${item.type}`;
       let genderInfo = document.createElement("span");
-      genderInfo.textContent = item.gender;
+      genderInfo.textContent = `Gender:  ${item.gender}`;
       let originInfo = document.createElement("span");
-      originInfo.textContent = item.origin.name;
+      originInfo.textContent = `Origin:  ${item.origin.name}`;
       let locationInfo = document.createElement("span");
-      locationInfo.textContent = item.location.name;
-      let createdInfo = document.createElement("span");
-      createdInfo.textContent = item.created;
+      locationInfo.textContent = `Location:  ${item.location.name}`;
+      let buttonClose = document.createElement("button");
+      let episodesBtn = document.createElement("button");
+      episodesBtn.textContent = "Episodes";
+      buttonClose.textContent = "cerrar";
+      containerInfo.append(
+        imageInfo,
+        nameInfo,
+        genderInfo,
+        statusInfo,
+        speciesInfo,
+        typeInfo,
+        originInfo,
+        locationInfo,
+        episodesBtn,
+        buttonClose
+      );
+      let sectionFilter = document.querySelector(".filterSection");
+      let cardMoreInfo = document.querySelector(".moreInfoCharacter");
+      cardMoreInfo.append(containerInfo);
+      sectionFilter.classList.toggle("invisible");
+      cardMoreInfo.classList.toggle("invisible");
+
+      buttonClose.addEventListener("click", () => {
+        sectionFilter.classList.toggle("invisible");
+        cardMoreInfo.classList.toggle("invisible");
+        let containerInfoToDelete = document.querySelector(".containerInfo");
+        containerInfoToDelete.remove();
+      });
     });
   });
   sectionToAppend.append(...cardsContainer);
