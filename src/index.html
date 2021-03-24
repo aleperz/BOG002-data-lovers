@@ -2,6 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Data Lovers</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -13,7 +15,8 @@
   <body>
     <main>
       <aside>
-        <span>Filtrar por:</span>
+        <button id="deleteFilterBtn">Borrar filtros</button>
+        <p>Filtrar por:</p>
         <ul class="filterContainer">
           <li class="options_filterContainer">
             <div class="deploy-but" id="deploy-buttonGender">
@@ -38,7 +41,6 @@
             </div>
           </li>
         </ul>
-        <button id="filterBtn">Filtrar</button>
       </aside>
       <section class="filterSection"></section>
       <section class="moreInfoCharacter"></section>

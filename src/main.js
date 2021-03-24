@@ -34,7 +34,7 @@ let createOptions = (item, container) => {
 };
 
 let category = ["gender", "status", "species"];
-//Mostrando los valores unicos de genero
+//Extrayendo opciones unicas por cada categoria con new Set
 let uniqueCategories = [];
 let categoryOptions = [];
 category.forEach((item) => {
@@ -57,9 +57,12 @@ uniqueCategories.forEach((item) => {
   );
   console.log(categoryOption);
   console.log(containerValues);
+
+  //Le seteamos el atributo dataset para su categoria
   containerValues.forEach((item) => {
     let inputOnLi = item.querySelector("input");
     inputOnLi.setAttribute("data-category", categoryOption);
+    //le damos append sobre su seccion padre
     OptionsParent.append(item);
   });
   console.log(containerValues);
@@ -70,7 +73,7 @@ let checkboxes = document.querySelectorAll("input");
 let checkboxesArray = Array.from(checkboxes);
 console.log(checkboxesArray);
 
-//Función para que que el usuario solo pueda seleccionar un check por categoria
+//El usuario solo podra seleccionar un check por categoria
 let categories = ["gender", "status", "species"];
 categories.forEach((item) => {
   let checkboxFilter = checkboxesArray.filter((checkbox) => {
@@ -86,38 +89,54 @@ categories.forEach((item) => {
   });
 });
 
-//Boton para aplicar los filtros selecionados por el usuario en los CHECKBOX
-document.querySelector("#filterBtn").addEventListener("click", () => {
-  //Extraemos los input tipo checkbox:checked
-  let inputs = document.querySelectorAll("input:checked");
-  console.log(...inputs);
+//Aplicar los filtros selecionados por el usuario al evento de change CHECKBOX
+let conditionsContainer = []; //ex:conditionsContainer = 1it:[[gender,genderless]]||2it:[[status,alive]||3it:[species,alien]]4it:[status,dead]
+checkboxes.forEach((item) => {
+  item.addEventListener("change", () => {
+    let filtrasteIgualCategory = conditionsContainer.find(
+      (element) => element[0] === item.dataset.category
+    );
 
-  //De cada checkbox:checked extraemos su value()
-  let conditionsContainer = []; //ex:conditionsContainer =[[gender,genderless],[status, alive],[species, alien]]
-  inputs.forEach((item) => {
+    if (filtrasteIgualCategory) {
+      let indice = conditionsContainer.indexOf(filtrasteIgualCategory);
+      conditionsContainer.splice(indice, 1);
+    }
+    //Del checkbox change extraemos su data-category y value()
     let conditions = []; //ex: conditions =[gender,genderless]
     conditions.push(item.dataset.category); //ex: gender
     conditions.push(item.value); //ex:genderless
     conditionsContainer.push(conditions);
-  });
-  console.log(conditionsContainer);
 
-  //Borrando lo que pudiera visualizarse de un filtro previo
+    console.log(conditionsContainer);
+
+    //Borrando lo que pudiera visualizarse de un filtro previo
+    let eliminatePreElements = document.querySelectorAll(".cardChar");
+    eliminatePreElements.forEach((item) => {
+      item.remove();
+    });
+
+    //Invocamos la funcion para filtrar y mostrar en pantalla los personajes filtrados
+    let datos = data.results;
+    showCharactersFilterOfData(datos, conditionsContainer);
+
+    conditions = [];
+  });
+});
+
+document.querySelector("#deleteFilterBtn").addEventListener("click", () => {
+  const selectInputs = document.querySelectorAll("input:checked");
+  selectInputs.forEach((input) => (input.checked = false));
+  conditionsContainer = [];
   let eliminatePreElements = document.querySelectorAll(".cardChar");
   eliminatePreElements.forEach((item) => {
     item.remove();
   });
-
+  let filterSection = document.querySelector(".filterSection");
   let datos = data.results;
-  showCharactersFilterOfData(datos, conditionsContainer);
-
-  //Quitamos el check:checked a los input para el caso en que el usuario desee hacer un nuevo filtro
-  inputs.forEach((item) => {
-    item.checked = false;
-  });
+  createCharacters(datos, filterSection);
 });
 
-//Función de crear personajes a partir de: 1. la Data filtrada o la Data, 2.indicandole seccion (elemento html) donde se hara el append
+//Función de crear personajes a partir de: 1. La Data filtrada, 2.indicandole seccion (elemento html) donde se hara el append
 let createCharacters = (filteredData, sectionToAppend) => {
   let cardsContainer = [];
   filteredData.forEach((item) => {
@@ -150,10 +169,11 @@ let createCharacters = (filteredData, sectionToAppend) => {
       originInfo.textContent = `Origin:  ${item.origin.name}`;
       let locationInfo = document.createElement("span");
       locationInfo.textContent = `Location:  ${item.location.name}`;
-      let buttonClose = document.createElement("button");
       let episodesBtn = document.createElement("button");
       episodesBtn.textContent = "Episodes";
-      buttonClose.textContent = "cerrar";
+      let closeBtn = document.createElement("img");
+      closeBtn.src = "/Assets/closeBtn.png";
+      closeBtn.classList.add("CloseButton");
       containerInfo.append(
         imageInfo,
         nameInfo,
@@ -164,15 +184,16 @@ let createCharacters = (filteredData, sectionToAppend) => {
         originInfo,
         locationInfo,
         episodesBtn,
-        buttonClose
+        closeBtn
       );
+
       let sectionFilter = document.querySelector(".filterSection");
       let cardMoreInfo = document.querySelector(".moreInfoCharacter");
       cardMoreInfo.append(containerInfo);
       sectionFilter.classList.toggle("invisible");
       cardMoreInfo.classList.toggle("invisible");
 
-      buttonClose.addEventListener("click", () => {
+      closeBtn.addEventListener("click", () => {
         sectionFilter.classList.toggle("invisible");
         cardMoreInfo.classList.toggle("invisible");
         let containerInfoToDelete = document.querySelector(".containerInfo");
@@ -185,7 +206,7 @@ let createCharacters = (filteredData, sectionToAppend) => {
 
 //FUNCION FILTER Y MOSTRAR PERSONAJES FILTRADOS
 function showCharactersFilterOfData(data, filters) {
-  //invocamos la función filter data y le pasamos por parametro todas las condiciones
+  //invocamos la función filter data y le pasamos por parametro la data y todas las condiciones
   let filtarray = filterData(data, filters);
   console.log(filtarray);
 
