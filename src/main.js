@@ -69,12 +69,14 @@ uniqueCategories.forEach((item) => {
   containerValues = [];
 });
 
-let checkboxes = document.querySelectorAll("input");
+const checkboxes = document.querySelectorAll("input");
 let checkboxesArray = Array.from(checkboxes);
 console.log(checkboxesArray);
 
-//El usuario solo podra seleccionar un check por categoria
+//El usuario solo podra seleccionar un checkbox por categoria
 let categories = ["gender", "status", "species"];
+
+//agrupamos todos los checkbox que sean de la misma categoria
 categories.forEach((item) => {
   let checkboxFilter = checkboxesArray.filter((checkbox) => {
     return checkbox.dataset.category === item;
@@ -90,22 +92,36 @@ categories.forEach((item) => {
 });
 
 //Aplicar los filtros selecionados por el usuario al evento de change CHECKBOX
-let conditionsContainer = []; //ex:conditionsContainer = 1it:[[gender,genderless]]||2it:[[status,alive]||3it:[species,alien]]4it:[status,dead]
+let conditionsContainer = []; //ex:conditionsContainer = 1it:[[gender,genderless]]||2it:[[status,alive]||3it:[species,alien]]4it:[status,alive]
 checkboxes.forEach((item) => {
   item.addEventListener("change", () => {
-    let filtrasteIgualCategory = conditionsContainer.find(
-      (element) => element[0] === item.dataset.category
-    );
-
-    if (filtrasteIgualCategory) {
-      let indice = conditionsContainer.indexOf(filtrasteIgualCategory);
-      conditionsContainer.splice(indice, 1);
-    }
     //Del checkbox change extraemos su data-category y value()
     let conditions = []; //ex: conditions =[gender,genderless]
     conditions.push(item.dataset.category); //ex: gender
     conditions.push(item.value); //ex:genderless
-    conditionsContainer.push(conditions);
+
+    let equalCheckboxSelected = conditionsContainer.find((element) =>
+      element.every(function (v, i) {
+        return v === conditions[i];
+      })
+    );
+    console.log(equalCheckboxSelected);
+
+    let previousCategorySelected = conditionsContainer.find(
+      (element) => element[0] === item.dataset.category
+    );
+    if (equalCheckboxSelected) {
+      item.checked = false;
+      let indexOfElement = conditionsContainer.indexOf(equalCheckboxSelected);
+      conditionsContainer.splice(indexOfElement, 1);
+    } else if (previousCategorySelected) {
+      //Valida si de esa misma categoria se hizo un filtro previo y lo elimina del container de condiciones para que filterData no nos devuelva un array vacio al final
+      let indice = conditionsContainer.indexOf(previousCategorySelected);
+      conditionsContainer.splice(indice, 1);
+      conditionsContainer.push(conditions);
+    } else {
+      conditionsContainer.push(conditions);
+    }
 
     console.log(conditionsContainer);
 
@@ -121,19 +137,6 @@ checkboxes.forEach((item) => {
 
     conditions = [];
   });
-});
-
-document.querySelector("#deleteFilterBtn").addEventListener("click", () => {
-  const selectInputs = document.querySelectorAll("input:checked");
-  selectInputs.forEach((input) => (input.checked = false));
-  conditionsContainer = [];
-  let eliminatePreElements = document.querySelectorAll(".cardChar");
-  eliminatePreElements.forEach((item) => {
-    item.remove();
-  });
-  let filterSection = document.querySelector(".filterSection");
-  let datos = data.results;
-  createCharacters(datos, filterSection);
 });
 
 //Función de crear personajes a partir de: 1. La Data filtrada, 2.indicandole seccion (elemento html) donde se hara el append
@@ -156,9 +159,9 @@ let createCharacters = (filteredData, sectionToAppend) => {
       let imageInfo = document.createElement("img");
       imageInfo.src = item.image;
       let statusInfo = document.createElement("span");
-      statusInfo.innerHTML = `Status:  ${item.status}`;
+      statusInfo.innerHTML = `Status: ${item.status}`;
       let nameInfo = document.createElement("span");
-      nameInfo.textContent = `Name:  ${item.name}`;
+      nameInfo.textContent = `Name: ${item.name}`;
       let speciesInfo = document.createElement("span");
       speciesInfo.textContent = `Specie:  ${item.species}`;
       let typeInfo = document.createElement("span");

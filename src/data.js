@@ -4,25 +4,7 @@ export const filterData = (data, conditions) => {
   //2it:[[gender,genderless],[status, alive]]
   //3it:[[gender,genderless],[status, alive],[species, alien]]
 
-  /*  let datafilter = [];
-
-  for (let i = 0; i < conditions.length; i++) {
-    datafilter = data.filter(
-      (characters) => characters[conditions[i][0]] === conditions[i][1]
-    );
-
-    console.log(datafilter);
-
-    if (conditions[i + 1]) {
-      let condition = conditions.slice(i + 1);
-      return filterData(datafilter, condition);
-    }
-  }
-
-  console.log(datafilter);
-
-  return datafilter;
-}; */
+  if (!conditions.length) return data;
 
   let datafilter = [];
   let conditionToEvaluate = conditions[0];
