@@ -139,6 +139,26 @@ checkboxes.forEach((item) => {
   });
 });
 
+//Boton para borrar todos los filtros aplicados previamente
+document.querySelector("#deleteFilterBtn").addEventListener("click", () => {
+  const selectInputs = document.querySelectorAll("input:checked");
+  selectInputs.forEach((input) => (input.checked = false));
+
+  //Limpiamos el container de condiciones
+  conditionsContainer = [];
+
+  //Eliminando las tarjetas de filtros anteriores
+  let eliminatePreElements = document.querySelectorAll(".cardChar");
+  eliminatePreElements.forEach((item) => {
+    item.remove();
+  });
+
+  //Mostramos todos los personajes
+  let filterSection = document.querySelector(".filterSection");
+  let datos = data.results;
+  createCharacters(datos, filterSection);
+});
+
 //Función de crear personajes a partir de: 1. La Data filtrada, 2.indicandole seccion (elemento html) donde se hara el append
 let createCharacters = (filteredData, sectionToAppend) => {
   let cardsContainer = [];
