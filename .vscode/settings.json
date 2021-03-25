@@ -1,3 +1,7 @@
 {
+<<<<<<< HEAD
+=======
+    "vscode-pets.petType": "dog",
+>>>>>>> b11da0579668e34c472d05c1e16ca60cf0053c0e
     "liveServer.settings.port": 5501
 }
