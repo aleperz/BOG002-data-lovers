@@ -26,12 +26,13 @@ aside {
   height: 100vw;
   background-color: #2a4a65;
   color: white;
-  padding: 20px 30px 10px 10px;
+  padding: 20px 10px 10px 10px;
   height: 700px;
 }
 .filterContainer {
   margin-top: 20px;
   list-style: none;
+  padding: 0;
 }
 aside ul {
   padding-left: 10px;
@@ -152,4 +153,8 @@ li img {
   margin-left: 20px;
   margin-bottom: 1px;
   color: white;
+}
+.btnContainer {
+  display: flex;
+  justify-content: space-between;
 }

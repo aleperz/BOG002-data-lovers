@@ -1,5 +1,4 @@
 export const filterData = (data, conditions) => {
-  console.log(conditions);
   //conditions(conditionsContainer) =1it:[[gender,genderless]]
   //2it:[[gender,genderless],[status, alive]]
   //3it:[[gender,genderless],[status, alive],[species, alien]]
@@ -13,9 +12,11 @@ export const filterData = (data, conditions) => {
   datafilter = data.filter(
     (subitem) => subitem[conditionToEvaluate[0]] === conditionToEvaluate[1]
   );
-  console.log(datafilter, conditionToEvaluate);
+
   if (conditions.length) {
     return filterData(datafilter, conditions);
   }
   return datafilter;
 };
+
+export const sortBy = () => {};

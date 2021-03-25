@@ -1,4 +1,4 @@
-import { filterData /* , anotherExample */ } from "./data.js";
+import { filterData, sortBy } from "./data.js";
 
 //Despliegue de subitems en barra lateral de filtrado
 let options = document.querySelectorAll(".deploy-but");
@@ -44,7 +44,6 @@ category.forEach((item) => {
   uniqueCategories.push(new Set(categoryOptions));
   categoryOptions = [];
 });
-console.log(uniqueCategories);
 
 let containerValues = [];
 uniqueCategories.forEach((item) => {
@@ -55,8 +54,6 @@ uniqueCategories.forEach((item) => {
   let OptionsParent = document.querySelector(
     `div#${categoryOption}Options >ul`
   );
-  console.log(categoryOption);
-  console.log(containerValues);
 
   //Le seteamos el atributo dataset para su categoria
   containerValues.forEach((item) => {
@@ -65,13 +62,11 @@ uniqueCategories.forEach((item) => {
     //le damos append sobre su seccion padre
     OptionsParent.append(item);
   });
-  console.log(containerValues);
   containerValues = [];
 });
 
 const checkboxes = document.querySelectorAll("input");
 let checkboxesArray = Array.from(checkboxes);
-console.log(checkboxesArray);
 
 //El usuario solo podra seleccionar un checkbox por categoria
 let categories = ["gender", "status", "species"];
@@ -105,7 +100,6 @@ checkboxes.forEach((item) => {
         return v === conditions[i];
       })
     );
-    console.log(equalCheckboxSelected);
 
     let previousCategorySelected = conditionsContainer.find(
       (element) => element[0] === item.dataset.category
@@ -122,8 +116,6 @@ checkboxes.forEach((item) => {
     } else {
       conditionsContainer.push(conditions);
     }
-
-    console.log(conditionsContainer);
 
     //Borrando lo que pudiera visualizarse de un filtro previo
     let eliminatePreElements = document.querySelectorAll(".cardChar");
@@ -231,7 +223,6 @@ let createCharacters = (filteredData, sectionToAppend) => {
 function showCharactersFilterOfData(data, filters) {
   //invocamos la función filter data y le pasamos por parametro la data y todas las condiciones
   let filtarray = filterData(data, filters);
-  console.log(filtarray);
 
   //visualizando personajes filtrados
   let filterSection = document.querySelector(".filterSection");
