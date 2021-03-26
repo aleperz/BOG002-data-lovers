@@ -19,4 +19,26 @@ export const filterData = (data, conditions) => {
   return datafilter;
 };
 
-export const sortBy = () => {};
+export const sortData = (data, sortBy, sortOrder) => {
+  let dataSort;
+
+  if (sortBy === "nombre") {
+    dataSort = data.sort((a, b) => {
+      if (a.name > b.name) {
+        return 1;
+      } else if (a.name < b.name) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+  }
+  if (sortOrder === "ascendente") {
+    dataSort;
+  } else {
+    dataSort = dataSort.reverse();
+    console.log(dataSort);
+  }
+
+  return dataSort;
+};

@@ -1,4 +1,19 @@
-import { filterData, sortBy } from "./data.js";
+import { filterData, sortData } from "./data.js";
+
+//Redireccion al section de filtrado de personajes
+
+const characterNavBar = document.querySelector("#characters");
+characterNavBar.addEventListener("click", () => {
+  const home = document.querySelector("#home");
+  const charactersSection = document.querySelector("#characterSection");
+  home.classList.add("ocultar");
+  charactersSection.classList.add("ocultar");
+
+  //Mostramos todos los personajes
+  let filterSection = document.querySelector(".filterSection");
+  let datos = data.results;
+  createCharacters(datos, filterSection);
+});
 
 //Despliegue de subitems en barra lateral de filtrado
 let options = document.querySelectorAll(".deploy-but");
@@ -219,16 +234,49 @@ let createCharacters = (filteredData, sectionToAppend) => {
   sectionToAppend.append(...cardsContainer);
 };
 
+let filtarray;
 //FUNCION FILTER Y MOSTRAR PERSONAJES FILTRADOS
 function showCharactersFilterOfData(data, filters) {
   //invocamos la función filter data y le pasamos por parametro la data y todas las condiciones
-  let filtarray = filterData(data, filters);
+  filtarray = filterData(data, filters);
+
+  //Ordenando los personajes
+  let select = document.querySelector("#sortBy");
+  const optionDesc = document.querySelector("#descendent");
+  select.addEventListener("change", (e) => {
+    console.log(e.target.value);
+
+    let sortOrder = e.target.value;
+
+    let datos;
+    if (filtarray) {
+      datos = filtarray;
+    } else {
+      datos = data.results;
+    }
+    let sortBy = "nombre";
+    let dataSort = sortData(datos, sortBy, sortOrder);
+
+    //Borrando lo que pudiera visualizarse de un filtro previo o data inicial
+    let eliminatePreElements = document.querySelectorAll(".cardChar");
+    eliminatePreElements.forEach((item) => {
+      item.remove();
+    });
+
+    //visualizando personajes Ordenados
+    let filterSection = document.querySelector(
+      ".filterSection"
+    ); /* 
+  if (dataSort) { */
+    createCharacters(dataSort, filterSection);
+  });
 
   //visualizando personajes filtrados
-  let filterSection = document.querySelector(".filterSection");
-  if (filtarray) {
-    createCharacters(filtarray, filterSection);
-  }
+  let filterSection = document.querySelector(
+    ".filterSection"
+  ); /* 
+  if (filtarray) { */
+  createCharacters(filtarray, filterSection);
 }
 
 //Mostrando los valores unicos de episodes

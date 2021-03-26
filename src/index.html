@@ -13,104 +13,116 @@
     />
   </head>
   <body>
-    
-      
-      <div class="main_header">
-        <div class="icono">
-          <img class="img_logo1" src="../Assets/icons8-rick-sanchez 1.svg" alt="Rick_Sanchez">
-          <img class="img_logo2" src="../Assets/Rick_and_Morty 1.svg" alt="Rick_and_Morty">
+    <header>
+      <div class="icono">
+        <div>
+          <img
+            class="img_logo1"
+            src="../Assets/icons8-rick-sanchez 1.svg"
+            alt="Rick_Sanchez"
+          />
+          <img
+            class="img_logo2"
+            src="../Assets/Rick_and_Morty 1.svg"
+            alt="Rick_and_Morty"
+          />
         </div>
-        <input type="checkbox" id="boton_menu">
-        <label class="icono_menu" for="boton_menu">
-            <img src="../Assets/menu.svg" alt="iconomenu" width="35px" height="35px">
-        </label>
+        <img class="burgerMenu" src="../Assets/menu.svg" alt="iconomenu" />
+      </div>
+      <div class="main_header">
         <nav class="menu">
-            
-            <div class="dropdown">
-                <button class="dropbtn">Characters</button>
-                <div class="dropdown-content">
-                   
-                </div>
+          <span id="characters" class="dropbtn">Characters</span>
+
+          <a href="index.html"><span class="dropbtn">Home</span></a>
+          <div class="dropdown">
+            <span class="dropbtn">Season</span>
+            <div class="dropdown-content">
+              <a href="">Season 1</a>
+              <a href="">Season 2</a>
+              <a href="">Season 3</a>
+              <a href="">Season 4</a>
             </div>
-            <div class="dropdown">
-              <button class="dropbtn">Season</button>
-              <div class="dropdown-content">
-                <a href="">Season 1</a>
-                <a href="">Season 2</a>
-                <a href="">Season 3</a>
-                <a href="">Season 4</a>
-              </div>
+          </div>
+          <div class="dropdown">
+            <span class="dropbtn">Origin</span>
+            <div class="dropdown-content">
+              <a href="">Seccion1</a>
+              <a href="">Seccion2</a>
+              <a href="">Seccion3</a>
+              <a href="">Información</a>
             </div>
-            <div class="dropdown">
-              <button class="dropbtn">Origin</button>
-              <div class="dropdown-content">
-                <a href="">Seccion1</a>
-                <a href="">Seccion2</a>
-                <a href="">Seccion3</a>
-                <a href="">Información</a>
-              </div>
-            </div>
-            <div class="dropdown">
-              <button class="dropbtn">Location</button>
-              <div class="dropdown-content">
-                
-              </div>
-            </div>
-           
+          </div>
+          <div class="dropdown">
+            <span class="dropbtn">Location</span>
+            <div class="dropdown-content"></div>
+          </div>
         </nav>
       </div>
     </header>
-   
-    
-    <div id="root"></div>
+
     <main>
-      <aside>
-        <div class="btnContainer">
-          <button id="deleteFilterBtn">Borrar filtros</button
-          ><button id="sortByBtn">Ordenar por:</button>
-        </div>
-        <p>Filtrar por:</p>
-        <ul class="filterContainer">
-          <li class="options_filterContainer">
-            <div class="deploy-but" id="deploy-buttonGender">
-              <span>Gender</span><img src="/Assets/arrow.svg" alt="" />
-            </div>
-            <div id="genderOptions" class="chosen" hidden></div>
-          </li>
-          <li class="options_filterContainer">
-            <div class="deploy-but" id="deploy-buttonStatus">
-              <span>Status</span><img src="/Assets/arrow.svg" alt="" />
-            </div>
-            <div id="statusOptions" class="chosen" hidden>
-              <ul></ul>
-            </div>
-          </li>
-          <li class="options_filterContainer">
-            <div class="deploy-but" id="deploy-buttonSpecies">
-              <span>Species</span><img src="/Assets/arrow.svg" alt="" />
-            </div>
-            <div id="speciesOptions" class="chosen" hidden>
-              <ul></ul>
-            </div>
-          </li>
-        </ul>
-      </aside>
-      <section class="filterSection"></section>
-      <section class="moreInfoCharacter"></section>
+      <section id="home" class="home"></section>
+      <section id="characterSection" class="charactersFilterSection">
+        <aside>
+          <div class="btnContainer">
+            <button id="deleteFilterBtn">Borrar filtros</button>
+            <label for="sort"
+              >Ordenar por:
+              <select name="sort" id="sortBy">
+                <option value=""></option>
+                <option value="descendente" id="ascendent">
+                  Nombre:Descendente
+                </option>
+                <option value="ascendente" id="descendent">
+                  Nombre:Ascendente
+                </option>
+              </select>
+            </label>
+          </div>
+          <p>Filtrar por:</p>
+          <ul class="filterContainer">
+            <li class="options_filterContainer">
+              <div class="deploy-but" id="deploy-buttonGender">
+                <span>Gender</span><img src="/Assets/arrow.svg" alt="" />
+              </div>
+              <div id="genderOptions" class="chosen" hidden></div>
+            </li>
+            <li class="options_filterContainer">
+              <div class="deploy-but" id="deploy-buttonStatus">
+                <span>Status</span><img src="/Assets/arrow.svg" alt="" />
+              </div>
+              <div id="statusOptions" class="chosen" hidden>
+                <ul></ul>
+              </div>
+            </li>
+            <li class="options_filterContainer">
+              <div class="deploy-but" id="deploy-buttonSpecies">
+                <span>Species</span><img src="/Assets/arrow.svg" alt="" />
+              </div>
+              <div id="speciesOptions" class="chosen" hidden>
+                <ul></ul>
+              </div>
+            </li>
+          </ul>
+        </aside>
+        <section class="filterSection"></section>
+        <section class="moreInfoCharacter"></section>
+      </section>
     </main>
     <footer>
-      <div class="contenidoiconos">
-        
-        <div class="iconosredes">
-            <div class="ajusteicono">
-            <img src="../Assets/icons8-rick-sanchez 1.svg" alt="Rick_Sanchez">
-            <a href="" target="blank"><img src="../Assets/twitter.svg" alt="iconotwitter"></a>
-            <a href="" target="blank"><img src="../Assets/fb.svg" alt="iconofacebook"></a>
-            <a href="" target="blank"><img src="../Assets/instg.svg" alt="iconoinstagram"></a>
-            <img src="../Assets/icons8-morty-smith 1.svg" alt="Morty">
-            </div>
-        </div>
-    </div>
+      <div class="ajusteicono">
+        <img src="../Assets/icons8-rick-sanchez 1.svg" alt="Rick_Sanchez" />
+        <a href="" target="blank"
+          ><img src="../Assets/twitter.svg" alt="iconotwitter"
+        /></a>
+        <a href="" target="blank"
+          ><img src="../Assets/fb.svg" alt="iconofacebook"
+        /></a>
+        <a href="" target="blank"
+          ><img src="../Assets/instg.svg" alt="iconoinstagram"
+        /></a>
+        <img src="../Assets/icons8-morty-smith 1.svg" alt="Morty" />
+      </div>
     </footer>
     <script src="main.js" type="module"></script>
   </body>
