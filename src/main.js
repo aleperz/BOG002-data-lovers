@@ -1,7 +1,7 @@
 import { filterData, sortData } from "./data.js";
+import data from "./data/rickandmorty/rickandmorty.js";
 
 //Redireccion al section de filtrado de personajes
-
 const characterNavBar = document.querySelector("#characters");
 characterNavBar.addEventListener("click", () => {
   const home = document.querySelector("#home");
@@ -23,8 +23,6 @@ options.forEach((item) => {
     parentDeploy.querySelector(".chosen").toggleAttribute("hidden");
   });
 });
-
-import data from "./data/rickandmorty/rickandmorty.js";
 
 //creando UL para crear dentro las opciones de filtrado
 let newUl;
@@ -102,6 +100,7 @@ categories.forEach((item) => {
 });
 
 //Aplicar los filtros selecionados por el usuario al evento de change CHECKBOX
+let dataFiltered;
 let conditionsContainer = []; //ex:conditionsContainer = 1it:[[gender,genderless]]||2it:[[status,alive]||3it:[species,alien]]4it:[status,alive]
 checkboxes.forEach((item) => {
   item.addEventListener("change", () => {
@@ -138,12 +137,67 @@ checkboxes.forEach((item) => {
       item.remove();
     });
 
-    //Invocamos la funcion para filtrar y mostrar en pantalla los personajes filtrados
+    //Invocamos la funcion para filtrar
     let datos = data.results;
-    showCharactersFilterOfData(datos, conditionsContainer);
+
+    dataFiltered = filterData(datos, conditionsContainer);
 
     conditions = [];
+
+    console.log(dataFiltered);
+
+    //Mostramos los datos filtrados u ordenados
+    let filterSection = document.querySelector(".filterSection");
+    createCharacters(dataFiltered, filterSection);
   });
+});
+
+//Ordenación en caso que el usuario seleccione solo la categoria por la cual desea ordenar (SortBy), por defecto sortOrder sera ascendente
+let sortBy;
+let sortOrder;
+let datasorted;
+let select = document.querySelector("#sortBy");
+select.addEventListener("change", (e) => {
+  let dataToSort = dataFiltered ? dataFiltered : data.results;
+  sortBy = e.target.value;
+  console.log(sortBy);
+  sortOrder = "ascendente";
+  console.log(dataToSort);
+  datasorted = sortData(dataToSort, sortBy, sortOrder);
+  console.log(datasorted);
+
+  //Borrando lo que pudiera visualizarse de un filter o sorting previo
+  let eliminatePreElements = document.querySelectorAll(".cardChar");
+  eliminatePreElements.forEach((item) => {
+    item.remove();
+  });
+
+  //Mostramos los datos filtrados u ordenados
+  let filterSection = document.querySelector(".filterSection");
+  createCharacters(datasorted, filterSection);
+});
+
+//Ordenación si el usuario selecciona ascendente o descendente, si no selecciona categoria previamente por defecto lo hara por el nombre del personaje
+let sortOrderContainer = document.querySelector(".sortOrder");
+sortOrderContainer.addEventListener("click", (e) => {
+  let dataToSort = dataFiltered ? dataFiltered : data.results;
+  sortOrder = e.target.id;
+  console.log(sortOrder);
+  console.log(sortBy);
+  sortBy = sortBy ? sortBy : "name";
+  console.log(dataToSort);
+  datasorted = sortData(dataToSort, sortBy, sortOrder);
+  console.log(datasorted);
+
+  //Borrando lo que pudiera visualizarse de un filter o sorting previo
+  let eliminatePreElements = document.querySelectorAll(".cardChar");
+  eliminatePreElements.forEach((item) => {
+    item.remove();
+  });
+
+  //Mostramos los datos filtrados u ordenados
+  let filterSection = document.querySelector(".filterSection");
+  createCharacters(datasorted, filterSection);
 });
 
 //Boton para borrar todos los filtros aplicados previamente
@@ -166,10 +220,10 @@ document.querySelector("#deleteFilterBtn").addEventListener("click", () => {
   createCharacters(datos, filterSection);
 });
 
-//Función de crear personajes a partir de: 1. La Data filtrada, 2.indicandole seccion (elemento html) donde se hara el append
-let createCharacters = (filteredData, sectionToAppend) => {
+//Función de crear personajes a partir de: 1. La Data filtrada u Ordenada 2.indicandole seccion (elemento html) donde se hara el append
+let createCharacters = (processedData, sectionToAppend) => {
   let cardsContainer = [];
-  filteredData.forEach((item) => {
+  processedData.forEach((item) => {
     let cardCharacter = document.createElement("div");
     cardCharacter.classList.add("cardChar");
     cardCharacter.setAttribute("id", item.id);
@@ -233,51 +287,6 @@ let createCharacters = (filteredData, sectionToAppend) => {
   });
   sectionToAppend.append(...cardsContainer);
 };
-
-let filtarray;
-//FUNCION FILTER Y MOSTRAR PERSONAJES FILTRADOS
-function showCharactersFilterOfData(data, filters) {
-  //invocamos la función filter data y le pasamos por parametro la data y todas las condiciones
-  filtarray = filterData(data, filters);
-
-  //Ordenando los personajes
-  let select = document.querySelector("#sortBy");
-  const optionDesc = document.querySelector("#descendent");
-  select.addEventListener("change", (e) => {
-    console.log(e.target.value);
-
-    let sortOrder = e.target.value;
-
-    let datos;
-    if (filtarray) {
-      datos = filtarray;
-    } else {
-      datos = data.results;
-    }
-    let sortBy = "nombre";
-    let dataSort = sortData(datos, sortBy, sortOrder);
-
-    //Borrando lo que pudiera visualizarse de un filtro previo o data inicial
-    let eliminatePreElements = document.querySelectorAll(".cardChar");
-    eliminatePreElements.forEach((item) => {
-      item.remove();
-    });
-
-    //visualizando personajes Ordenados
-    let filterSection = document.querySelector(
-      ".filterSection"
-    ); /* 
-  if (dataSort) { */
-    createCharacters(dataSort, filterSection);
-  });
-
-  //visualizando personajes filtrados
-  let filterSection = document.querySelector(
-    ".filterSection"
-  ); /* 
-  if (filtarray) { */
-  createCharacters(filtarray, filterSection);
-}
 
 //Mostrando los valores unicos de episodes
 /* const episodes = []    

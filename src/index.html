@@ -64,21 +64,7 @@
       <section id="home" class="home"></section>
       <section id="characterSection" class="charactersFilterSection">
         <aside>
-          <div class="btnContainer">
-            <button id="deleteFilterBtn">Borrar filtros</button>
-            <label for="sort"
-              >Ordenar por:
-              <select name="sort" id="sortBy">
-                <option value=""></option>
-                <option value="descendente" id="ascendent">
-                  Nombre:Descendente
-                </option>
-                <option value="ascendente" id="descendent">
-                  Nombre:Ascendente
-                </option>
-              </select>
-            </label>
-          </div>
+          <button id="deleteFilterBtn">Borrar filtros</button>
           <p>Filtrar por:</p>
           <ul class="filterContainer">
             <li class="options_filterContainer">
@@ -105,10 +91,29 @@
             </li>
           </ul>
         </aside>
-        <section class="filterSection"></section>
-        <section class="moreInfoCharacter"></section>
+        <section class="sortFilterView">
+          <div class="sortContainer">
+            <label for="sort"
+              >Ordenar por:
+              <select name="sort" id="sortBy">
+                <option value=""></option>
+                <option value="name">Nombre</option>
+                <option value="gender">Gender</option>
+                <option value="status">Status</option>
+                <option value="species">Species</option>
+              </select>
+            </label>
+            <div class="sortOrder">
+              <img id="ascendente" src="/Assets/orden-ascendente.svg" alt="" />
+              <img id="descendente" src="/Assets/ordenar-abajo.svg" alt="" />
+            </div>
+          </div>
+          <section class="filterSection"></section>
+          <section class="moreInfoCharacter"></section>
+        </section>
       </section>
     </main>
+
     <footer>
       <div class="ajusteicono">
         <img src="../Assets/icons8-rick-sanchez 1.svg" alt="Rick_Sanchez" />

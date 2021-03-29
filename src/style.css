@@ -23,9 +23,10 @@ header {
   display: flex;
   background: #ead854;
   width: 100%;
-  height: 150px;
+  height: 100px;
   left: 0px;
   top: 0px;
+  position: fixed;
 }
 .icono {
   background: #ead854;
@@ -141,7 +142,7 @@ header label:hover {
 .dropdown:hover .dropbtn {
   color: #000;
 }
-@media (max-width: 920px) {
+@media (max-width: 500px) {
   header label {
     display: block;
     height: 70px;
@@ -181,6 +182,11 @@ header label:hover {
 /* Main */
 main {
   background-color: gray;
+  min-height: 500px;
+  max-height: fit-content;
+  margin-top: 100px;
+}
+.home {
   height: 900px;
 }
 
@@ -195,16 +201,23 @@ main {
   display: none;
 }
 aside {
-  width: 190px;
+  width: 200px;
   background-color: #2a4a65;
   color: white;
-  height: 100%
-  padding: 20px 10px 10px 10px;
+  padding: 5px 10px 10px 10px;
+  position: fixed;
+  min-height: 100%;
+  max-height: fit-content;
+}
+aside p {
+  margin: 0;
+  margin-top: 5px;
 }
 .filterContainer {
-  margin-top: 20px;
+  margin-top: 5px;
   list-style: none;
   padding: 0;
+  font-size: 14px;
 }
 aside ul {
   padding-left: 10px;
@@ -213,7 +226,7 @@ aside ul {
   list-style: none;
   padding-left: 10px;
   margin-top: 5px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 .deploy-but {
   display: flex;
@@ -223,7 +236,7 @@ aside ul {
   align-items: center;
   border: 0.2px solid white;
   border-radius: 3px;
-  padding: 6px;
+  padding: 1px 10px;
 }
 
 li img {
@@ -234,7 +247,23 @@ li img {
 .filterContainer .options_filterContainer:last-child ul {
   margin-bottom: 0;
 }
-
+.sortFilterView {
+  display: flex;
+  flex-direction: column;
+  margin-left: 220px;
+  align-items: center;
+}
+.sortContainer {
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.sortContainer select {
+  width: 150px;
+}
 .filterSection {
   width: 100%;
   background-color: gray;
@@ -328,11 +357,16 @@ li img {
   justify-content: space-between;
 }
 
+.sortOrder img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
 /*Footer*/
 footer {
   background-color: #ead854;
   width: 100%;
-  /* height: 20%; */
 }
 
 .ajusteicono {

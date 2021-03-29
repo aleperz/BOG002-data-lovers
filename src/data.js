@@ -20,19 +20,16 @@ export const filterData = (data, conditions) => {
 };
 
 export const sortData = (data, sortBy, sortOrder) => {
-  let dataSort;
+  let dataSort = data.sort((a, b) => {
+    if (a[sortBy] > b[sortBy]) {
+      return 1;
+    } else if (a[sortBy] < b[sortBy]) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
 
-  if (sortBy === "nombre") {
-    dataSort = data.sort((a, b) => {
-      if (a.name > b.name) {
-        return 1;
-      } else if (a.name < b.name) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
-  }
   if (sortOrder === "ascendente") {
     dataSort;
   } else {
