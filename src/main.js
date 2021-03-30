@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { filterData, sortData } from "./data.js";
 import data from "./data/rickandmorty/rickandmorty.js";
 
@@ -146,7 +147,7 @@ checkboxes.forEach((item) => {
 
     console.log(dataFiltered);
 
-    //Mostramos los datos filtrados u ordenados
+    //Mostramos los datos filtrados
     let filterSection = document.querySelector(".filterSection");
     createCharacters(dataFiltered, filterSection);
   });
@@ -222,70 +223,116 @@ document.querySelector("#deleteFilterBtn").addEventListener("click", () => {
 
 //Función de crear personajes a partir de: 1. La Data filtrada u Ordenada 2.indicandole seccion (elemento html) donde se hara el append
 let createCharacters = (processedData, sectionToAppend) => {
-  let cardsContainer = [];
-  processedData.forEach((item) => {
-    let cardCharacter = document.createElement("div");
-    cardCharacter.classList.add("cardChar");
-    cardCharacter.setAttribute("id", item.id);
-    let cardTitle = document.createElement("span");
-    cardTitle.textContent = item.name;
-    let cardImage = document.createElement("img");
-    cardImage.src = item.image;
-    cardCharacter.append(cardImage, cardTitle);
-    cardsContainer.push(cardCharacter);
-    cardCharacter.addEventListener("click", () => {
-      let containerInfo = document.createElement("div");
-      containerInfo.setAttribute("id", item.id);
-      containerInfo.classList.add("containerInfo");
-      let imageInfo = document.createElement("img");
-      imageInfo.src = item.image;
-      let statusInfo = document.createElement("span");
-      statusInfo.innerHTML = `Status: ${item.status}`;
-      let nameInfo = document.createElement("span");
-      nameInfo.textContent = `Name: ${item.name}`;
-      let speciesInfo = document.createElement("span");
-      speciesInfo.textContent = `Specie:  ${item.species}`;
-      let typeInfo = document.createElement("span");
-      typeInfo.textContent = `Type:  ${item.type}`;
-      let genderInfo = document.createElement("span");
-      genderInfo.textContent = `Gender:  ${item.gender}`;
-      let originInfo = document.createElement("span");
-      originInfo.textContent = `Origin:  ${item.origin.name}`;
-      let locationInfo = document.createElement("span");
-      locationInfo.textContent = `Location:  ${item.location.name}`;
-      let episodesBtn = document.createElement("button");
-      episodesBtn.textContent = "Episodes";
-      let closeBtn = document.createElement("img");
-      closeBtn.src = "/Assets/closeBtn.png";
-      closeBtn.classList.add("CloseButton");
-      containerInfo.append(
-        imageInfo,
-        nameInfo,
-        genderInfo,
-        statusInfo,
-        speciesInfo,
-        typeInfo,
-        originInfo,
-        locationInfo,
-        episodesBtn,
-        closeBtn
-      );
+  let current_page = 1;
+  let charPerPage = 10;
+  let sectionFilter = document.querySelector(".filterSection");
+  let paginationButtons = document.querySelector("#pagination");
 
-      let sectionFilter = document.querySelector(".filterSection");
-      let cardMoreInfo = document.querySelector(".moreInfoCharacter");
-      cardMoreInfo.append(containerInfo);
-      sectionFilter.classList.toggle("invisible");
-      cardMoreInfo.classList.toggle("invisible");
+  let DisplayCharacters = (characters, container, charPerPage, page) => {
+    container.innerHTML = "";
+    page--;
 
-      closeBtn.addEventListener("click", () => {
+    let start = charPerPage * page;
+    let end = start + charPerPage;
+    let paginatedCharacters = characters.slice(start, end);
+
+    for (let i = 0; i < paginatedCharacters.length; i++) {
+      let character = paginatedCharacters[i];
+
+      let cardCharacter = document.createElement("div");
+      cardCharacter.classList.add("cardChar");
+      cardCharacter.setAttribute("id", character.id);
+      let cardTitle = document.createElement("span");
+      cardTitle.textContent = character.name;
+      let cardImage = document.createElement("img");
+      cardImage.src = character.image;
+      cardCharacter.append(cardImage, cardTitle);
+
+      cardCharacter.addEventListener("click", () => {
+        let containerInfo = document.createElement("div");
+        containerInfo.setAttribute("id", character.id);
+        containerInfo.classList.add("containerInfo");
+        let imageInfo = document.createElement("img");
+        imageInfo.src = character.image;
+        let statusInfo = document.createElement("span");
+        statusInfo.innerHTML = `Status: ${character.status}`;
+        let nameInfo = document.createElement("span");
+        nameInfo.textContent = `Name: ${character.name}`;
+        let speciesInfo = document.createElement("span");
+        speciesInfo.textContent = `Specie:  ${character.species}`;
+        let typeInfo = document.createElement("span");
+        typeInfo.textContent = `Type:  ${character.type}`;
+        let genderInfo = document.createElement("span");
+        genderInfo.textContent = `Gender:  ${character.gender}`;
+        let originInfo = document.createElement("span");
+        originInfo.textContent = `Origin:  ${character.origin.name}`;
+        let locationInfo = document.createElement("span");
+        locationInfo.textContent = `Location:  ${character.location.name}`;
+        let episodesBtn = document.createElement("button");
+        episodesBtn.textContent = "Episodes";
+        let closeBtn = document.createElement("img");
+        closeBtn.src = "/Assets/closeBtn.png";
+        closeBtn.classList.add("CloseButton");
+        containerInfo.append(
+          imageInfo,
+          nameInfo,
+          genderInfo,
+          statusInfo,
+          speciesInfo,
+          typeInfo,
+          originInfo,
+          locationInfo,
+          episodesBtn,
+          closeBtn
+        );
+        let sectionFilter = document.querySelector(".filterSection");
+        let cardMoreInfo = document.querySelector(".moreInfoCharacter");
+        cardMoreInfo.append(containerInfo);
         sectionFilter.classList.toggle("invisible");
         cardMoreInfo.classList.toggle("invisible");
-        let containerInfoToDelete = document.querySelector(".containerInfo");
-        containerInfoToDelete.remove();
+
+        closeBtn.addEventListener("click", () => {
+          sectionFilter.classList.toggle("invisible");
+          cardMoreInfo.classList.toggle("invisible");
+          let containerInfoToDelete = document.querySelector(".containerInfo");
+          containerInfoToDelete.remove();
+        });
       });
+      container.appendChild(cardCharacter);
+    }
+  };
+
+  function SetupSlides(characters, container, charPerPage) {
+    container.innerHTML = "";
+
+    let slide_count = Math.ceil(characters.length / charPerPage);
+    for (let i = 1; i < slide_count + 1; i++) {
+      let btn = PaginationButton(i, characters);
+      container.appendChild(btn);
+    }
+  }
+
+  let PaginationButton = (page, characters) => {
+    let button = document.createElement("button");
+    button.innerText = page;
+
+    /* if (current_page == page) button.classList.add("active"); */
+
+    button.addEventListener("click", () => {
+      current_page = page;
+      DisplayCharacters(characters, sectionFilter, charPerPage, current_page);
+
+      /* let current_btn = document.querySelector(".pagenumbers button.active");
+      current_btn.classList.remove("active");
+
+      button.classList.add("active"); */
     });
-  });
-  sectionToAppend.append(...cardsContainer);
+
+    return button;
+  };
+
+  DisplayCharacters(processedData, sectionToAppend, charPerPage, current_page);
+  SetupSlides(processedData, paginationButtons, charPerPage);
 };
 
 //Mostrando los valores unicos de episodes

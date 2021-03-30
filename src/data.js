@@ -16,6 +16,7 @@ export const filterData = (data, conditions) => {
   if (conditions.length) {
     return filterData(datafilter, conditions);
   }
+  console.log(datafilter);
   return datafilter;
 };
 

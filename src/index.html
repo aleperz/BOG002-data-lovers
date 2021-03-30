@@ -29,35 +29,31 @@
         </div>
         <img class="burgerMenu" src="../Assets/menu.svg" alt="iconomenu" />
       </div>
-      <div class="main_header">
-        <nav class="menu">
-          <span id="characters" class="dropbtn">Characters</span>
+      <nav class="menu">
+        <span id="characters" class="dropbtn">Characters</span>
 
-          <a href="index.html"><span class="dropbtn">Home</span></a>
-          <div class="dropdown">
-            <span class="dropbtn">Season</span>
-            <div class="dropdown-content">
-              <a href="">Season 1</a>
-              <a href="">Season 2</a>
-              <a href="">Season 3</a>
-              <a href="">Season 4</a>
-            </div>
-          </div>
-          <div class="dropdown">
-            <span class="dropbtn">Origin</span>
-            <div class="dropdown-content">
-              <a href="">Seccion1</a>
-              <a href="">Seccion2</a>
-              <a href="">Seccion3</a>
-              <a href="">Información</a>
-            </div>
-          </div>
-          <div class="dropdown">
-            <span class="dropbtn">Location</span>
-            <div class="dropdown-content"></div>
-          </div>
-        </nav>
-      </div>
+        <a href="index.html"><span class="dropbtn">Home</span></a>
+        <div class="dropdown">
+          <span class="dropbtn">Season</span>
+          <ul>
+            <li>Season 1</li>
+            <li>Season 2</li>
+            <li>Season 3</li>
+            <li>Season 4</li>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <span class="dropbtn">Origin</span>
+          <ul>
+            <li>Seccion1</li>
+            <li>Seccion2</li>
+            <li>Seccion3</li>
+            <li>Información</li>
+          </ul>
+        </div>
+
+        <span class="dropbtn">Location</span>
+      </nav>
     </header>
 
     <main>
@@ -98,9 +94,6 @@
               <select name="sort" id="sortBy">
                 <option value=""></option>
                 <option value="name">Nombre</option>
-                <option value="gender">Gender</option>
-                <option value="status">Status</option>
-                <option value="species">Species</option>
               </select>
             </label>
             <div class="sortOrder">
@@ -109,6 +102,7 @@
             </div>
           </div>
           <section class="filterSection"></section>
+          <div class="pagenumbers" id="pagination"></div>
           <section class="moreInfoCharacter"></section>
         </section>
       </section>

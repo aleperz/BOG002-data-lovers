@@ -82,16 +82,7 @@ header {
 #boton_menu {
   display: none;
 }
-header label {
-  display: none;
-  width: 100px;
-  padding: 10px;
-  border-right: 1px solid #ffffff;
-}
-header label:hover {
-  cursor: pointer;
-  background: #ead854;
-}
+
 .menu ul {
   padding: 0;
   margin: 0;
@@ -127,6 +118,12 @@ header label:hover {
   min-width: 160px;
   z-index: 1;
 }
+.dropdown ul {
+  display: none;
+  background-color: #ead854;
+  min-width: 160px;
+  z-index: 1;
+}
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
@@ -136,12 +133,13 @@ header label:hover {
 .dropdown:hover .dropdown-content {
   display: block;
 }
-.dropdown-content a:hover {
-  background-color: yellow;
+.dropdown:hover ul {
+  display: block;
 }
-.dropdown:hover .dropbtn {
-  color: #000;
+.dropdown.origin:hover .dropdown-content {
+  display: block;
 }
+
 @media (max-width: 500px) {
   header label {
     display: block;
@@ -162,7 +160,6 @@ header label:hover {
   }
 
   .dropbtn {
-    background-color: #ead854;
     color: black;
     width: 100%;
   }
@@ -171,11 +168,6 @@ header label:hover {
   }
   .dropdown-content a:hover {
     color: black;
-    background-color: #ead854;
-  }
-  .dropdown:hover .dropbtn {
-    color: black;
-    background-color: yellow;
   }
 }
 
@@ -249,6 +241,7 @@ li img {
 }
 .sortFilterView {
   display: flex;
+  width: 100%;
   flex-direction: column;
   margin-left: 220px;
   align-items: center;
@@ -361,6 +354,7 @@ li img {
   width: 30px;
   height: 30px;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 /*Footer*/
@@ -375,6 +369,15 @@ footer {
 }
 .ajusteicono img {
   padding: 25px;
+}
+
+.pagenumbers button:hover {
+  background-color: #44eeaa;
+}
+
+.pagenumbers button.active {
+  background-color: #44eeaa;
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
 }
 /* .contenidoiconos{
     margin-top: 150px;
