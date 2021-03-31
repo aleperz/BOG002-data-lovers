@@ -2,20 +2,6 @@
 import { filterData, sortData } from "./data.js";
 import data from "./data/rickandmorty/rickandmorty.js";
 
-//Redireccion al section de filtrado de personajes
-const characterNavBar = document.querySelector("#characters");
-characterNavBar.addEventListener("click", () => {
-  const home = document.querySelector("#home");
-  const charactersSection = document.querySelector("#characterSection");
-  home.classList.add("ocultar");
-  charactersSection.classList.add("ocultar");
-
-  //Mostramos todos los personajes
-  let filterSection = document.querySelector(".filterSection");
-  let datos = data.results;
-  createCharacters(datos, filterSection);
-});
-
 //Despliegue de subitems en barra lateral de filtrado
 let options = document.querySelectorAll(".deploy-but");
 options.forEach((item) => {
@@ -132,12 +118,6 @@ checkboxes.forEach((item) => {
       conditionsContainer.push(conditions);
     }
 
-    //Borrando lo que pudiera visualizarse de un filtro previo
-    let eliminatePreElements = document.querySelectorAll(".cardChar");
-    eliminatePreElements.forEach((item) => {
-      item.remove();
-    });
-
     //Invocamos la funcion para filtrar
     let datos = data.results;
 
@@ -167,12 +147,6 @@ select.addEventListener("change", (e) => {
   datasorted = sortData(dataToSort, sortBy, sortOrder);
   console.log(datasorted);
 
-  //Borrando lo que pudiera visualizarse de un filter o sorting previo
-  let eliminatePreElements = document.querySelectorAll(".cardChar");
-  eliminatePreElements.forEach((item) => {
-    item.remove();
-  });
-
   //Mostramos los datos filtrados u ordenados
   let filterSection = document.querySelector(".filterSection");
   createCharacters(datasorted, filterSection);
@@ -190,12 +164,6 @@ sortOrderContainer.addEventListener("click", (e) => {
   datasorted = sortData(dataToSort, sortBy, sortOrder);
   console.log(datasorted);
 
-  //Borrando lo que pudiera visualizarse de un filter o sorting previo
-  let eliminatePreElements = document.querySelectorAll(".cardChar");
-  eliminatePreElements.forEach((item) => {
-    item.remove();
-  });
-
   //Mostramos los datos filtrados u ordenados
   let filterSection = document.querySelector(".filterSection");
   createCharacters(datasorted, filterSection);
@@ -209,12 +177,6 @@ document.querySelector("#deleteFilterBtn").addEventListener("click", () => {
   //Limpiamos el container de condiciones
   conditionsContainer = [];
 
-  //Eliminando las tarjetas de filtros anteriores
-  let eliminatePreElements = document.querySelectorAll(".cardChar");
-  eliminatePreElements.forEach((item) => {
-    item.remove();
-  });
-
   //Mostramos todos los personajes
   let filterSection = document.querySelector(".filterSection");
   let datos = data.results;
@@ -223,19 +185,24 @@ document.querySelector("#deleteFilterBtn").addEventListener("click", () => {
 
 //Función de crear personajes a partir de: 1. La Data filtrada u Ordenada 2.indicandole seccion (elemento html) donde se hara el append
 let createCharacters = (processedData, sectionToAppend) => {
-  let current_page = 1;
-  let charPerPage = 10;
-  let sectionFilter = document.querySelector(".filterSection");
-  let paginationButtons = document.querySelector("#pagination");
+  let current_slide = 1;
+  let charPerSlide = 10;
+  /* let sectionFilter = document.querySelector(".filterSection");
+  let paginationButtons = document.querySelector("#pagination"); */
 
-  let DisplayCharacters = (characters, container, charPerPage, page) => {
+  //funcion para mostrar los personajes de 10 posiciones en c/slide
+  let DisplayCharacters = (characters, container, charPerSlide, slide) => {
+    //Se borran los personajes mostrados previamente
     container.innerHTML = "";
-    page--;
+    //se le resta 1 al slide pagina actual
+    slide--;
 
-    let start = charPerPage * page;
-    let end = start + charPerPage;
+    //Se extraen los elementos a mostrar por slide
+    let start = charPerSlide * slide;
+    let end = start + charPerSlide;
     let paginatedCharacters = characters.slice(start, end);
 
+    //se crean cards por cada personaje a mostrar y subcards con info mas detallada
     for (let i = 0; i < paginatedCharacters.length; i++) {
       let character = paginatedCharacters[i];
 
@@ -248,6 +215,7 @@ let createCharacters = (processedData, sectionToAppend) => {
       cardImage.src = character.image;
       cardCharacter.append(cardImage, cardTitle);
 
+      //subcards con info detallada que se crean al click
       cardCharacter.addEventListener("click", () => {
         let containerInfo = document.createElement("div");
         containerInfo.setAttribute("id", character.id);
@@ -288,9 +256,12 @@ let createCharacters = (processedData, sectionToAppend) => {
         let sectionFilter = document.querySelector(".filterSection");
         let cardMoreInfo = document.querySelector(".moreInfoCharacter");
         cardMoreInfo.append(containerInfo);
+
+        //Al click tambien se oculta la seccion donde se ven las cards generales y se muestra solo la subcard correspondiente
         sectionFilter.classList.toggle("invisible");
         cardMoreInfo.classList.toggle("invisible");
 
+        //al hacer click en el btn cerrar, se oculta la subcard y se puede ver nuevamente la seccion de cards generales
         closeBtn.addEventListener("click", () => {
           sectionFilter.classList.toggle("invisible");
           cardMoreInfo.classList.toggle("invisible");
@@ -298,42 +269,128 @@ let createCharacters = (processedData, sectionToAppend) => {
           containerInfoToDelete.remove();
         });
       });
+      //se anexan las cards y su contenido dentro de la seccion deseada
       container.appendChild(cardCharacter);
     }
   };
 
-  function SetupSlides(characters, container, charPerPage) {
-    container.innerHTML = "";
+  //Se setea el slide
+  let SetupSlides = (characters, charPerSlide) => {
+    let slide_count = Math.ceil(characters.length / charPerSlide);
+    console.log(slide_count);
 
-    let slide_count = Math.ceil(characters.length / charPerPage);
-    for (let i = 1; i < slide_count + 1; i++) {
-      let btn = PaginationButton(i, characters);
-      container.appendChild(btn);
-    }
-  }
+    let moveToNextSlide = () => {
+      let next_slide;
+      if (current_slide < slide_count) {
+        next_slide = current_slide++;
+        console.log(current_slide);
+        return DisplayCharacters(
+          processedData,
+          sectionToAppend,
+          charPerSlide,
+          next_slide
+        );
+      } else {
+        next_slide = 1;
+        return DisplayCharacters(
+          processedData,
+          sectionToAppend,
+          charPerSlide,
+          next_slide
+        );
+      }
+    };
 
-  let PaginationButton = (page, characters) => {
-    let button = document.createElement("button");
-    button.innerText = page;
+    let moveToPrevSlide = () => {
+      if (current_slide > 1) {
+        let prev_slide = current_slide--;
+        DisplayCharacters(
+          processedData,
+          sectionToAppend,
+          charPerSlide,
+          prev_slide
+        );
+      } else {
+        let prev_slide = slide_count;
+        DisplayCharacters(
+          processedData,
+          sectionToAppend,
+          charPerSlide,
+          prev_slide
+        );
+      }
+    };
 
-    /* if (current_page == page) button.classList.add("active"); */
-
-    button.addEventListener("click", () => {
-      current_page = page;
-      DisplayCharacters(characters, sectionFilter, charPerPage, current_page);
-
-      /* let current_btn = document.querySelector(".pagenumbers button.active");
-      current_btn.classList.remove("active");
-
-      button.classList.add("active"); */
-    });
-
-    return button;
+    console.log(document.querySelector(".moving_buttons"));
+    document
+      .querySelector(".moving_buttons")
+      .addEventListener("click", (event) => {
+        console.log(event.target.id);
+        if (event.target.id === "next") {
+          moveToNextSlide();
+        } else {
+          moveToPrevSlide();
+        }
+      });
   };
-
-  DisplayCharacters(processedData, sectionToAppend, charPerPage, current_page);
-  SetupSlides(processedData, paginationButtons, charPerPage);
+  DisplayCharacters(
+    processedData,
+    sectionToAppend,
+    charPerSlide,
+    current_slide
+  );
+  SetupSlides(processedData, charPerSlide);
 };
+
+let filterSection = document.querySelector(".filterSection");
+createCharacters(data.results, filterSection);
+
+let hideEpisodeCharacters = () => {
+  document
+    .querySelector(".charactersFilterSection")
+    .classList.toggle("visible");
+  document.querySelector(".episodes_section").classList.toggle("visible");
+};
+
+let episodesSection = document.querySelector("#season");
+episodesSection.addEventListener("click", () => {
+  hideEpisodeCharacters();
+});
+
+let characterSection = document.querySelector("#characters");
+characterSection.addEventListener("click", () => {
+  hideEpisodeCharacters();
+});
+
+//Traemos la data de episosios
+const url_api = "https://rickandmortyapi.com/api/episode";
+async function getEpisodes() {
+  const response = await fetch(url_api);
+  const dataApiEpisodes = await response.json();
+  console.log(dataApiEpisodes);
+  const dataEpisodes = dataApiEpisodes.results;
+  console.log(dataEpisodes);
+  const episodesSection = document.querySelector(".episodes_section");
+  const episodesContainer = [];
+  dataEpisodes.forEach((item) => {
+    const episode = document.createElement("div");
+    const numOfCharactersPerEpisode = item.characters.length;
+    episode.innerHTML = `<span>${item.name}</span> <span>${numOfCharactersPerEpisode}</span>`;
+    const characters = item.characters;
+    async function getCharactersPerEpisode() {
+      const response = await fetch();
+    }
+    episodesContainer.push(episode);
+  });
+  episodesSection.append(...episodesContainer);
+}
+
+getEpisodes();
+
+/* let season = document.querySelector(".season");
+season.addEventListener("click", (event) => {
+  let seasonNumber = event.target.id;
+}); */
 
 //Mostrando los valores unicos de episodes
 /* const episodes = []    

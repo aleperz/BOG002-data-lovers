@@ -58,10 +58,10 @@ header {
     justify-content: flex-end; */
 }
 .img_logo2 {
-  width: 280px;
   height: 76px;
-  padding-left: 0%;
-  margin-left: 0;
+  padding-left: 0;
+  margin-left: 10px;
+  margin-right: 20px;
   /* Estas dos propiedades me centran la imagen */
   /*margin: 30px auto;
     /* display: inline-flex;
@@ -82,12 +82,20 @@ header {
 #boton_menu {
   display: none;
 }
-
+.menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 60%;
+}
 .menu ul {
   padding: 0;
   margin: 0;
   list-style: none;
   display: inline-flex;
+}
+.menu div {
+  margin-right: 10px;
 }
 .menu li {
   padding: 20px 25px 0px 25px;
@@ -96,33 +104,19 @@ header {
   text-decoration: none;
   color: black;
 }
-.menu li a:hover {
-  color: black;
-  text-decoration: overline;
-}
-.dropdown {
-  display: inline-block;
-}
-.dropbtn {
+
+.menu span {
   background-color: #ead854;
   font-size: 26px;
   font-family: "Lobster", cursive;
   color: white;
-  padding: 16px;
-  border: none;
   cursor: pointer;
 }
-.dropdown-content {
+ul.seasons {
   display: none;
-  background-color: #ead854;
-  min-width: 160px;
-  z-index: 1;
 }
-.dropdown ul {
+ul.origins {
   display: none;
-  background-color: #ead854;
-  min-width: 160px;
-  z-index: 1;
 }
 .dropdown-content a {
   color: black;
@@ -130,14 +124,24 @@ header {
   text-decoration: none;
   display: block;
 }
-.dropdown:hover .dropdown-content {
-  display: block;
+.origin {
+  position: relative;
 }
-.dropdown:hover ul {
+
+.origin:hover .origins {
   display: block;
+  background: #ead854;
+  width: fit-content;
+  position: absolute;
+  cursor: pointer;
 }
-.dropdown.origin:hover .dropdown-content {
-  display: block;
+.season {
+  position: relative;
+}
+
+.origins li:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 @media (max-width: 500px) {
@@ -158,15 +162,11 @@ header {
   #boton_menu:checked ~ .menu {
     margin: 0;
   }
-
   .dropbtn {
     color: black;
     width: 100%;
   }
   .dropdown-content a {
-    color: black;
-  }
-  .dropdown-content a:hover {
     color: black;
   }
 }
@@ -178,20 +178,12 @@ main {
   max-height: fit-content;
   margin-top: 100px;
 }
-.home {
-  height: 900px;
-}
 
-.home.ocultar {
-  display: none;
-}
-.charactersFilterSection.ocultar {
+.charactersFilterSection {
   display: flex;
   flex-direction: row;
 }
-.charactersFilterSection {
-  display: none;
-}
+
 aside {
   width: 200px;
   background-color: #2a4a65;
@@ -356,6 +348,18 @@ li img {
   margin-right: 10px;
   cursor: pointer;
 }
+.episodes_section {
+  display: none;
+}
+.episodes_section.visible {
+  display: flex;
+  height: 900px;
+  background-color: #ac7b2c;
+}
+
+.charactersFilterSection.visible {
+  display: none;
+}
 
 /*Footer*/
 footer {
@@ -370,15 +374,17 @@ footer {
 .ajusteicono img {
   padding: 25px;
 }
-
-.pagenumbers button:hover {
-  background-color: #44eeaa;
+.episodes_section {
+  display: flex;
+  flex-direction: column;
+}
+.episodes_section div {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 150px;
+  height: 50px;
 }
 
-.pagenumbers button.active {
-  background-color: #44eeaa;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
-}
 /* .contenidoiconos{
     margin-top: 150px;
 } */

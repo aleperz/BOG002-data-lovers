@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data Lovers</title>
+    <title>DL:Rick&Morty</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -27,37 +27,23 @@
             alt="Rick_and_Morty"
           />
         </div>
+
         <img class="burgerMenu" src="../Assets/menu.svg" alt="iconomenu" />
       </div>
+
       <nav class="menu">
-        <span id="characters" class="dropbtn">Characters</span>
-
-        <a href="index.html"><span class="dropbtn">Home</span></a>
-        <div class="dropdown">
-          <span class="dropbtn">Season</span>
-          <ul>
-            <li>Season 1</li>
-            <li>Season 2</li>
-            <li>Season 3</li>
-            <li>Season 4</li>
-          </ul>
+        <div><span id="characters">Characters</span></div>
+        <div id="season" class="season">
+          <span>Episodes</span>
         </div>
-        <div class="dropdown">
+        <div class="origin">
           <span class="dropbtn">Origin</span>
-          <ul>
-            <li>Seccion1</li>
-            <li>Seccion2</li>
-            <li>Seccion3</li>
-            <li>Información</li>
-          </ul>
         </div>
-
-        <span class="dropbtn">Location</span>
+        <div><span>Location</span></div>
       </nav>
     </header>
 
     <main>
-      <section id="home" class="home"></section>
       <section id="characterSection" class="charactersFilterSection">
         <aside>
           <button id="deleteFilterBtn">Borrar filtros</button>
@@ -101,11 +87,17 @@
               <img id="descendente" src="/Assets/ordenar-abajo.svg" alt="" />
             </div>
           </div>
+
           <section class="filterSection"></section>
-          <div class="pagenumbers" id="pagination"></div>
+          <div class="moving_buttons">
+            <button id="prev">Previous</button>
+            <button id="next">Next</button>
+          </div>
           <section class="moreInfoCharacter"></section>
         </section>
       </section>
+
+      <section class="episodes_section"></section>
     </main>
 
     <footer>
