@@ -133,33 +133,17 @@ checkboxes.forEach((item) => {
   });
 });
 
-//Ordenación en caso que el usuario seleccione solo la categoria por la cual desea ordenar (SortBy), por defecto sortOrder sera ascendente
+//Ordenación si el usuario selecciona ascendente o descendente, si no selecciona categoria previamente por defecto lo hara por el nombre del personaje
 let sortBy;
 let sortOrder;
 let datasorted;
-let select = document.querySelector("#sortBy");
-select.addEventListener("change", (e) => {
-  let dataToSort = dataFiltered ? dataFiltered : data.results;
-  sortBy = e.target.value;
-  console.log(sortBy);
-  sortOrder = "ascendente";
-  console.log(dataToSort);
-  datasorted = sortData(dataToSort, sortBy, sortOrder);
-  console.log(datasorted);
-
-  //Mostramos los datos filtrados u ordenados
-  let filterSection = document.querySelector(".filterSection");
-  createCharacters(datasorted, filterSection);
-});
-
-//Ordenación si el usuario selecciona ascendente o descendente, si no selecciona categoria previamente por defecto lo hara por el nombre del personaje
 let sortOrderContainer = document.querySelector(".sortOrder");
 sortOrderContainer.addEventListener("click", (e) => {
   let dataToSort = dataFiltered ? dataFiltered : data.results;
   sortOrder = e.target.id;
   console.log(sortOrder);
   console.log(sortBy);
-  sortBy = sortBy ? sortBy : "name";
+  sortBy = "name";
   console.log(dataToSort);
   datasorted = sortData(dataToSort, sortBy, sortOrder);
   console.log(datasorted);
@@ -187,8 +171,8 @@ document.querySelector("#deleteFilterBtn").addEventListener("click", () => {
 let createCharacters = (processedData, sectionToAppend) => {
   let current_slide = 1;
   let charPerSlide = 10;
-  /* let sectionFilter = document.querySelector(".filterSection");
-  let paginationButtons = document.querySelector("#pagination"); */
+  let sectionFilter = document.querySelector(".filterSection");
+  let paginationButtons = document.querySelector("#pagination");
 
   //funcion para mostrar los personajes de 10 posiciones en c/slide
   let DisplayCharacters = (characters, container, charPerSlide, slide) => {
@@ -275,7 +259,233 @@ let createCharacters = (processedData, sectionToAppend) => {
   };
 
   //Se setea el slide
-  let SetupSlides = (characters, charPerSlide) => {
+  let SetupSlides = (characters, btncontainer, charPerSlide) => {
+    btncontainer.innerHTML = "";
+
+    let slide_count = Math.ceil(characters.length / charPerSlide);
+    for (let i = 1; i < slide_count + 1; i++) {
+      let btn = PaginationButton(i, characters);
+      btncontainer.appendChild(btn);
+    }
+  };
+
+  let PaginationButton = (slide, characters) => {
+    let button = document.createElement("button");
+    button.innerText = slide;
+
+    if (current_slide == slide) button.classList.add("active");
+
+    button.addEventListener("click", () => {
+      current_slide = slide;
+      DisplayCharacters(characters, sectionFilter, charPerSlide, current_slide);
+
+      let current_btn = document.querySelector(".pagenumbers button.active");
+      current_btn.classList.remove("active");
+
+      button.classList.add("active");
+    });
+
+    return button;
+  };
+
+  DisplayCharacters(
+    processedData,
+    sectionToAppend,
+    charPerSlide,
+    current_slide
+  );
+  SetupSlides(processedData, paginationButtons, charPerSlide);
+};
+
+let filterSection = document.querySelector(".filterSection");
+createCharacters(data.results, filterSection);
+
+let hideEpisodeCharacters = () => {
+  document
+    .querySelector(".charactersFilterSection")
+    .classList.toggle("visible");
+  document.querySelector(".episodes_section").classList.toggle("visible");
+};
+
+let episodesSection = document.querySelector("#season");
+episodesSection.addEventListener("click", () => {
+  hideEpisodeCharacters();
+});
+
+let characterSection = document.querySelector("#characters");
+characterSection.addEventListener("click", () => {
+  hideEpisodeCharacters();
+});
+
+const xlabels = [];
+const ylabels = [];
+chartIt();
+
+async function chartIt() {
+  await getEpisodes();
+  const ctx = document.getElementById("charactPerEpi").getContext("2d");
+  const chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: xlabels,
+      datasets: [
+        {
+          label: "# of Characters per Episode",
+          data: ylabels,
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          borderColor: "rgba(255, 99, 132, 1)",
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+    },
+  });
+}
+
+//Traemos la data de episodios
+
+async function getEpisodes() {
+  const url_api = "https://rickandmortyapi.com/api/episode";
+  const response = await fetch(url_api);
+  const dataApiEpisodes = await response.json();
+  console.log(dataApiEpisodes);
+  const dataEpisodes = dataApiEpisodes.results;
+  console.log(dataEpisodes);
+  let idOfEpisode = dataEpisodes.map((item) => xlabels.push(item.id));
+  console.log(idOfEpisode);
+  const episodesSection = document.querySelector(".chapters");
+  const episodesContainer = [];
+
+  dataEpisodes.forEach((item) => {
+    const episode = document.createElement("div");
+    episode.classList.add("episodeContainer");
+    const charactersDiv = document.createElement("div");
+    charactersDiv.classList.add("cardcharacter");
+    const numOfCharactersPerEpisode = item.characters.length;
+    ylabels.push(numOfCharactersPerEpisode);
+    episode.innerHTML = `<span>${item.name}</span>`;
+
+    /* <span>Number of Characters: ${numOfCharactersPerEpisode}</span> */
+    const characters = item.characters;
+
+    async function getCharactersPerEpisode(urlEpisode) {
+      const response = await fetch(urlEpisode);
+      const dataCharacter = await response.json();
+      const cardCharacter = document.createElement("div");
+
+      cardCharacter.innerHTML = `<img src=${dataCharacter.image}></img>`;
+      charactersDiv.appendChild(cardCharacter);
+    }
+    characters.forEach((characterURL) => {
+      getCharactersPerEpisode(characterURL);
+    });
+    episode.append(charactersDiv);
+    episodesContainer.push(episode);
+  });
+  episodesSection.append(...episodesContainer);
+}
+
+const xCharsLabels = [];
+const yCharsLabels = [];
+async function getCharacters() {
+  const url_api_char = "https://rickandmortyapi.com/api/character";
+  const response = await fetch(url_api_char);
+  const dataChar = await response.json();
+  let dataCharacters = dataChar.results;
+  console.log(dataCharacters);
+  dataCharacters.map((item) => xCharsLabels.push(item.name));
+  dataCharacters.map((item) => yCharsLabels.push(item.episode.length));
+}
+
+getCharacters();
+
+const ctx = document.getElementById("mainCharact").getContext("2d");
+const chart = new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: xCharsLabels,
+    datasets: [
+      {
+        label: "Top 5 Characters Appearances",
+        data: yCharsLabels,
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(255, 159, 64, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  },
+});
+
+//OPCION PAGINACION EN LUGAR DE SLIDERS
+/* let SetupSlides = (characters, btncontainer, charPerSlide) => {
+    container.innerHTML = "";
+  
+    let slide_count = Math.ceil(characters.length / charPerSlide);
+    for (let i = 1; i < slide_count + 1; i++) {
+      let btn = PaginationButton(i, characters);
+      btncontainer.appendChild(btn);
+    }
+  };
+  
+  let PaginationButton = (slide, characters) => {
+    let button = document.createElement("button");
+    button.innerText = slide;
+  
+    if (current_slide == slide) button.classList.add("active");
+  
+    button.addEventListener("click", () => {
+      current_slide = slide;
+      DisplayCharacters(characters, sectionFilter, charPerSlide, current_slide);
+  
+      let current_btn = document.querySelector(".pagenumbers button.active");
+      current_btn.classList.remove("active");
+  
+      button.classList.add("active");
+    });
+  
+    return button;
+  };
+  
+  DisplayCharacters(processedData, sectionToAppend, charPerSlide, current_slide);
+  SetupSlides(processedData, paginationButtons, charPerSlide);  */
+
+//OPCION SLIDES
+/*  let SetupSlides = (characters, charPerSlide) => {
     let slide_count = Math.ceil(characters.length / charPerSlide);
     console.log(slide_count);
 
@@ -340,73 +550,4 @@ let createCharacters = (processedData, sectionToAppend) => {
     current_slide
   );
   SetupSlides(processedData, charPerSlide);
-};
-
-let filterSection = document.querySelector(".filterSection");
-createCharacters(data.results, filterSection);
-
-let hideEpisodeCharacters = () => {
-  document
-    .querySelector(".charactersFilterSection")
-    .classList.toggle("visible");
-  document.querySelector(".episodes_section").classList.toggle("visible");
-};
-
-let episodesSection = document.querySelector("#season");
-episodesSection.addEventListener("click", () => {
-  hideEpisodeCharacters();
-});
-
-let characterSection = document.querySelector("#characters");
-characterSection.addEventListener("click", () => {
-  hideEpisodeCharacters();
-});
-
-//Traemos la data de episosios
-const url_api = "https://rickandmortyapi.com/api/episode";
-async function getEpisodes() {
-  const response = await fetch(url_api);
-  const dataApiEpisodes = await response.json();
-  console.log(dataApiEpisodes);
-  const dataEpisodes = dataApiEpisodes.results;
-  console.log(dataEpisodes);
-  const episodesSection = document.querySelector(".episodes_section");
-  const episodesContainer = [];
-  dataEpisodes.forEach((item) => {
-    const episode = document.createElement("div");
-    const numOfCharactersPerEpisode = item.characters.length;
-    episode.innerHTML = `<span>${item.name}</span> <span>${numOfCharactersPerEpisode}</span>`;
-    const characters = item.characters;
-    async function getCharactersPerEpisode() {
-      const response = await fetch();
-    }
-    episodesContainer.push(episode);
-  });
-  episodesSection.append(...episodesContainer);
-}
-
-getEpisodes();
-
-/* let season = document.querySelector(".season");
-season.addEventListener("click", (event) => {
-  let seasonNumber = event.target.id;
-}); */
-
-//Mostrando los valores unicos de episodes
-/* const episodes = []    
-data.results.forEach(item =>{
-    let epi = []
-    epi.push(item.episode)
-    console.log(epi)
-    epi.forEach(it => {
-        episodes.push(it)
-    })
-    
-});
-let uniqueEpisodes = new Set(episodes)
-    console.log(uniqueEpisodes) */
-
-//Extrayendo valor del checkbox
-/* let checks = document.querySelectorAll() */
-
-/* console.log(example, anotherExample,  */
+}; */

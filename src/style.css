@@ -6,6 +6,12 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+@font-face {
+  font-family: "Rick_and_Morty";
+  src: local("Rick_and_Morty"),
+    url(rick_and_morty_font_by_starriichan_d9h2vl6.ttf) format("ttf");
+}
+
 :root {
   --verdeRM: #82c826;
   --verdeazulOscuroRM: #264a48;
@@ -21,7 +27,7 @@ body {
 
 header {
   display: flex;
-  background: #ead854;
+  background-color: black;
   width: 100%;
   height: 100px;
   left: 0px;
@@ -29,13 +35,11 @@ header {
   position: fixed;
 }
 .icono {
-  background: #ead854;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin-left: 30px;
   height: 80%;
-  margin-top: 20px;
 }
 .icono div {
   display: flex;
@@ -47,26 +51,17 @@ header {
   display: none;
 }
 .img_logo1 {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
+  margin-top: 20px;
   margin-bottom: 10px;
   padding-right: 0%;
-  /* Estas dos propiedades me centran la imagen */
-  /*margin: 10px auto;
-    /* display: inline-flex;
-    flex-direction: row;
-    justify-content: flex-end; */
 }
 .img_logo2 {
-  height: 76px;
+  height: 90px;
   padding-left: 0;
   margin-left: 10px;
   margin-right: 20px;
-  /* Estas dos propiedades me centran la imagen */
-  /*margin: 30px auto;
-    /* display: inline-flex;
-    flex-direction: row;
-    justify-content: flex-end; */
 }
 .main_header {
   text-align: center;
@@ -76,7 +71,6 @@ header {
 }
 .icono_menu {
   padding-top: 30px;
-  /* height: 70px; */
 }
 
 #boton_menu {
@@ -106,9 +100,8 @@ header {
 }
 
 .menu span {
-  background-color: #ead854;
   font-size: 26px;
-  font-family: "Lobster", cursive;
+  font-family: "Rick_and_Morty";
   color: white;
   cursor: pointer;
 }
@@ -117,12 +110,6 @@ ul.seasons {
 }
 ul.origins {
   display: none;
-}
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
 }
 .origin {
   position: relative;
@@ -153,7 +140,6 @@ ul.origins {
   .menu {
     display: flex;
     flex-direction: column;
-    background: #ead854;
     width: 60%;
     margin-left: -100%;
     transition: all 0.5s;
@@ -166,14 +152,14 @@ ul.origins {
     color: black;
     width: 100%;
   }
-  .dropdown-content a {
-    color: black;
-  }
 }
 
 /* Main */
 main {
-  background-color: gray;
+  background-image: url(/Assets/rick-and-morty-wallpaper-portal-wallpaper-016.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 500px;
   max-height: fit-content;
   margin-top: 100px;
@@ -237,24 +223,28 @@ li img {
   flex-direction: column;
   margin-left: 220px;
   align-items: center;
+  position: relative;
 }
 .sortContainer {
   display: flex;
-  flex-direction: row;
-  width: 400px;
-  justify-content: space-between;
+  flex-direction: column;
+  width: 90px;
+  align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.sortContainer select {
-  width: 150px;
+.sortContainer span {
+  align-self: flex-start;
+  color: white;
+  font-family: "Rick_and_Morty";
+  font-size: 26px;
 }
 .filterSection {
   width: 100%;
-  background-color: gray;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
 }
 .filterSection div {
   display: flex;
@@ -299,7 +289,7 @@ li img {
   align-items: center;
   width: 100%;
   justify-content: center;
-  background-color: gray;
+  background-color: black;
   flex-wrap: wrap;
 }
 
@@ -348,14 +338,6 @@ li img {
   margin-right: 10px;
   cursor: pointer;
 }
-.episodes_section {
-  display: none;
-}
-.episodes_section.visible {
-  display: flex;
-  height: 900px;
-  background-color: #ac7b2c;
-}
 
 .charactersFilterSection.visible {
   display: none;
@@ -363,7 +345,7 @@ li img {
 
 /*Footer*/
 footer {
-  background-color: #ead854;
+  background-color: black;
   width: 100%;
 }
 
@@ -375,16 +357,70 @@ footer {
   padding: 25px;
 }
 .episodes_section {
+  display: none;
+}
+.episodes_section {
+  display: none;
+}
+.episodes_section.visible {
   display: flex;
   flex-direction: column;
+  min-height: 900px;
+  max-height: fit-content;
+  background-color: white;
+  align-items: center;
+  padding-top: 30px;
 }
-.episodes_section div {
+.chapters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+}
+.episodes_section.visible section {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  align-items: center;
+}
+.episodeContainer {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: fit-content;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+.episodeContainer span {
   border: 1px solid black;
-  border-radius: 10px;
-  width: 150px;
-  height: 50px;
+  margin-bottom: 5px;
 }
-
-/* .contenidoiconos{
-    margin-top: 150px;
-} */
+.cardcharacter {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cardcharacter img {
+  width: 20px;
+  height: 20px;
+}
+.cardcharacter span {
+  font-size: 10px;
+}
+.moving_buttons {
+  width: 97%;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+}
+.moving_buttons img {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+.active {
+  background-color: #82c826;
+}
+.pagenumbers {
+  width: 300px;
+}
