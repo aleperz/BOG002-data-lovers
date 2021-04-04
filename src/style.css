@@ -33,6 +33,7 @@ header {
   left: 0px;
   top: 0px;
   position: fixed;
+  z-index: 1;
 }
 .icono {
   display: flex;
@@ -183,6 +184,24 @@ aside p {
   margin: 0;
   margin-top: 5px;
 }
+aside button {
+  display: flex;
+  font-family: "Rick_and_Morty";
+  text-align: center;
+  padding: 10px 5px 5px 5px;
+  border-radius: 10px;
+  border: none;
+  background-color: #82c826;
+  font-size: 18px;
+}
+aside button img {
+  width: 15px;
+  height: 15px;
+  margin-right: 2px;
+}
+aside button span {
+  text-align: center;
+}
 .filterContainer {
   margin-top: 5px;
   list-style: none;
@@ -250,22 +269,22 @@ li img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px 2px 4px 2px;
-  width: 150px;
-  height: 190px;
+  padding: 2px 2px 4px 2px;
+  width: 120px;
+  height: 160px;
   border: 1px solid black;
   margin: 10px;
-  border-radius: 5px;
+  border-radius: 20px;
   background-color: var(--azuloscuroRM);
 }
 .filterSection div img {
   width: 120px;
   height: 120px;
-  margin-bottom: 25px;
-  border-radius: 5px 5px 0px 0px;
+  margin-bottom: 11px;
+  border-radius: 20px 20px 0px 0px;
 }
 .filterSection div span {
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
   color: white;
   font-weight: bold;
@@ -423,4 +442,9 @@ footer {
 }
 .pagenumbers {
   width: 300px;
+}
+.pagenumbers button {
+  border-radius: 2px;
+  border: none;
+  margin-right: 2px;
 }

@@ -170,7 +170,7 @@ document.querySelector("#deleteFilterBtn").addEventListener("click", () => {
 //Función de crear personajes a partir de: 1. La Data filtrada u Ordenada 2.indicandole seccion (elemento html) donde se hara el append
 let createCharacters = (processedData, sectionToAppend) => {
   let current_slide = 1;
-  let charPerSlide = 10;
+  let charPerSlide = 21;
   let sectionFilter = document.querySelector(".filterSection");
   let paginationButtons = document.querySelector("#pagination");
 
