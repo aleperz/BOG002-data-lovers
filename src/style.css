@@ -4,6 +4,7 @@ body {
   margin-top: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  position: absolute;
 }
 
 @font-face {
@@ -33,17 +34,13 @@ header {
   left: 0px;
   top: 0px;
   position: fixed;
-  z-index: 1;
+  z-index: 3;
 }
 .icono {
   display: flex;
-  flex-direction: column;
   justify-content: flex-start;
   margin-left: 30px;
   height: 80%;
-}
-.icono div {
-  display: flex;
 }
 .burgerMenu {
   padding-left: 20px;
@@ -132,26 +129,76 @@ ul.origins {
   cursor: pointer;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 749px) {
   header label {
     display: block;
     height: 70px;
   }
-
+  .toggle {
+    background-image: url("/Assets/menu.png");
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: cover;
+    top: 35px;
+    right: 80px;
+    cursor: pointer;
+  }
+  .toggle.active-menu {
+    background-image: url("/Assets/close.png");
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: cover;
+    top: 35px;
+    right: 80px;
+    z-index: 1000;
+    cursor: pointer;
+  }
   .menu {
+    display: none;
+  }
+  .menu.active-menu {
     display: flex;
     flex-direction: column;
-    width: 60%;
-    margin-left: -100%;
-    transition: all 0.5s;
-    z-index: 100;
+    width: 50%;
+    height: 50%;
+    position: fixed;
+    right: 50px;
+    top: 70px;
+    justify-content: center;
+    align-items: center;
+    background-color: #82c826;
   }
-  #boton_menu:checked ~ .menu {
+  .menu.active-menu div {
+    margin-bottom: 10px;
+  }
+  aside {
+    display: none;
+  }
+  section.sortFilterView {
     margin: 0;
   }
-  .dropbtn {
-    color: black;
-    width: 100%;
+  .img_logo2 {
+    width: 60%;
+    height: 90%;
+  }
+  .icono {
+    width: 80%;
+  }
+  img.filter-image {
+    display: block;
+  }
+  aside.aside-visible {
+    display: block;
+    width: 200px;
+    height: fit-content;
+    position: absolute;
+    z-index: 2;
   }
 }
 
@@ -164,11 +211,13 @@ main {
   min-height: 500px;
   max-height: fit-content;
   margin-top: 100px;
+  width: 100%;
 }
 
 .charactersFilterSection {
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 
 aside {
@@ -399,7 +448,7 @@ footer {
 .episodes_section.visible section {
   display: flex;
   flex-direction: column;
-  width: 700px;
+  width: 50%;
   align-items: center;
 }
 .episodeContainer {
@@ -447,4 +496,14 @@ footer {
   border-radius: 2px;
   border: none;
   margin-right: 2px;
+}
+.toogle {
+  display: none;
+}
+canvas {
+  width: 100%;
+  height: 100%;
+}
+.filter-image {
+  display: none;
 }

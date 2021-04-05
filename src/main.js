@@ -11,6 +11,30 @@ options.forEach((item) => {
   });
 });
 
+//RESPONSIVE DESIGN
+//BurgerMenu
+const burgerMenu = document.querySelector(".toggle");
+const menu = document.querySelector(".menu");
+const menuOptions = document.querySelectorAll(".menu-option");
+burgerMenu.addEventListener("click", () => {
+  burgerMenu.classList.toggle("active-menu");
+  menu.classList.toggle("active-menu");
+});
+
+menuOptions.forEach((option) =>
+  option.addEventListener("click", () => {
+    burgerMenu.classList.toggle("active-menu");
+    menu.classList.toggle("active-menu");
+  })
+);
+
+//Aside Oculto
+const aside = document.querySelector("aside");
+const filterImage = document.querySelector(".filter-image");
+filterImage.addEventListener("click", () => {
+  aside.classList.toggle("aside-visible");
+});
+
 //creando UL para crear dentro las opciones de filtrado
 let newUl;
 let chosen = document.querySelectorAll(".chosen");
