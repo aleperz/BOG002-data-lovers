@@ -223,7 +223,8 @@ let createCharacters = (processedData, sectionToAppend) => {
         let episodesBtn = document.createElement("button");
         episodesBtn.textContent = "Episodes";
         let closeBtn = document.createElement("img");
-        closeBtn.src = "/Assets/closeBtn.png";
+        closeBtn.src =
+          "https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/closeBtn.png";
         closeBtn.classList.add("CloseButton");
         containerInfo.append(
           imageInfo,
