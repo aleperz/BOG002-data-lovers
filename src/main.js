@@ -125,8 +125,6 @@ checkboxes.forEach((item) => {
 
     conditions = [];
 
-    console.log(dataFiltered);
-
     //Mostramos los datos filtrados
     let filterSection = document.querySelector(".filterSection");
     createCharacters(dataFiltered, filterSection);
@@ -141,12 +139,8 @@ let sortOrderContainer = document.querySelector(".sortOrder");
 sortOrderContainer.addEventListener("click", (e) => {
   let dataToSort = dataFiltered ? dataFiltered : data.results;
   sortOrder = e.target.id;
-  console.log(sortOrder);
-  console.log(sortBy);
   sortBy = "name";
-  console.log(dataToSort);
   datasorted = sortData(dataToSort, sortBy, sortOrder);
-  console.log(datasorted);
 
   //Mostramos los datos filtrados u ordenados
   let filterSection = document.querySelector(".filterSection");
