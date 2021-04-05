@@ -157,7 +157,7 @@ ul.origins {
 
 /* Main */
 main {
-  background-image: url(/Assets/rick-and-morty-wallpaper-portal-wallpaper-016.jpg);
+  background-image: url("https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/rick-and-morty-wallpaper-portal-wallpaper-016.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
