@@ -174,11 +174,18 @@ ul.origins {
     align-items: center;
     background-color: #82c826;
   }
+  .charactersFilterSection {
+    position: relative;
+  }
   .menu.active-menu div {
     margin-bottom: 10px;
   }
   aside {
-    display: none;
+    position: absolute;
+    left: -155px;
+    width: 280px;
+    z-index: 1;
+    transition: 0.5s;
   }
   section.sortFilterView {
     margin: 0;
@@ -192,13 +199,16 @@ ul.origins {
   }
   img.filter-image {
     display: block;
+    width: 40px;
+    position: absolute;
+    right: 4px;
   }
   aside.aside-visible {
-    display: block;
-    width: 200px;
+    left: 0px;
     height: fit-content;
     position: absolute;
     z-index: 2;
+    transition: 0.5s;
   }
 }
 
@@ -221,7 +231,7 @@ main {
 }
 
 aside {
-  width: 200px;
+  width: 180px;
   background-color: #2a4a65;
   color: white;
   padding: 5px 10px 10px 10px;
@@ -270,7 +280,7 @@ aside ul {
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-  width: 180px;
+  width: 120px;
   align-items: center;
   border: 0.2px solid white;
   border-radius: 3px;
