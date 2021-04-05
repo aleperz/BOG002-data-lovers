@@ -135,7 +135,7 @@ ul.origins {
     height: 70px;
   }
   .toggle {
-    background-image: url("/Assets/menu.png");
+    background-image: url("https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/menu.png");
     width: 30px;
     height: 30px;
     background-position: center;
@@ -147,7 +147,7 @@ ul.origins {
     cursor: pointer;
   }
   .toggle.active-menu {
-    background-image: url("/Assets/close.png");
+    background-image: url("https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/close.png");
     width: 30px;
     height: 30px;
     background-position: center;
