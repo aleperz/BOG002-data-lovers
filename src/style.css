@@ -189,6 +189,10 @@ ul.origins {
   }
   section.sortFilterView {
     margin: 0;
+    padding-left: 45px;
+  }
+  section.filterSection div {
+    margin: 2px;
   }
   .img_logo2 {
     width: 60%;
