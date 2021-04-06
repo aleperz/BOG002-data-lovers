@@ -190,6 +190,7 @@ ul.origins {
   section.sortFilterView {
     margin: 0;
     padding-left: 45px;
+    justify-content: center;
   }
   section.filterSection div {
     margin: 2px;
@@ -214,6 +215,12 @@ ul.origins {
     z-index: 2;
     transition: 0.5s;
   }
+  .pagenumbers button {
+    background-color: #c0dae4;
+  }
+  button.active {
+    background-color: #82c826;
+  }
 }
 
 /* Main */
@@ -222,7 +229,7 @@ main {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 500px;
+  min-height: 600px;
   max-height: fit-content;
   margin-top: 100px;
   width: 100%;
@@ -364,6 +371,11 @@ li img {
   display: none;
   visibility: hidden;
 }
+.pagenumbers.invisible {
+  display: none;
+  visibility: hidden;
+}
+
 .moreInfoCharacter.invisible {
   visibility: visible;
   display: flex;
@@ -371,7 +383,6 @@ li img {
   align-items: center;
   width: 100%;
   justify-content: center;
-  background-color: black;
   flex-wrap: wrap;
 }
 
@@ -382,10 +393,11 @@ li img {
   flex-direction: column;
   text-align: left;
   border: solid 1px black;
-  padding: 15px 5px 25px 5px;
+  padding: 15px 5px 10px 5px;
   border-radius: 5px;
-  top: 60px;
   background-color: #2a4a65;
+  margin-bottom: 20px;
+  position: relative;
 }
 .containerInfo button {
   width: 80px;
@@ -393,19 +405,21 @@ li img {
   margin-top: 12px;
 }
 .containerInfo img {
-  width: 220px;
-  height: 200px;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
   align-self: center;
   margin-bottom: 15px;
 }
 .containerInfo .CloseButton {
   width: 20px;
   height: 20px;
+  position: absolute;
   top: 3px;
   right: 2px;
 }
 .containerInfo span {
-  margin-left: 20px;
+  margin-left: 10px;
   margin-bottom: 1px;
   color: white;
 }

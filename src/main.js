@@ -219,28 +219,26 @@ let createCharacters = (processedData, sectionToAppend) => {
 
       //subcards con info detallada que se crean al click
       cardCharacter.addEventListener("click", () => {
-        let containerInfo = document.createElement("div");
+        const containerInfo = document.createElement("div");
         containerInfo.setAttribute("id", character.id);
         containerInfo.classList.add("containerInfo");
-        let imageInfo = document.createElement("img");
+        const imageInfo = document.createElement("img");
         imageInfo.src = character.image;
-        let statusInfo = document.createElement("span");
+        const statusInfo = document.createElement("span");
         statusInfo.innerHTML = `Status: ${character.status}`;
-        let nameInfo = document.createElement("span");
+        const nameInfo = document.createElement("span");
         nameInfo.textContent = `Name: ${character.name}`;
-        let speciesInfo = document.createElement("span");
+        const speciesInfo = document.createElement("span");
         speciesInfo.textContent = `Specie:  ${character.species}`;
-        let typeInfo = document.createElement("span");
+        const typeInfo = document.createElement("span");
         typeInfo.textContent = `Type:  ${character.type}`;
-        let genderInfo = document.createElement("span");
+        const genderInfo = document.createElement("span");
         genderInfo.textContent = `Gender:  ${character.gender}`;
-        let originInfo = document.createElement("span");
+        const originInfo = document.createElement("span");
         originInfo.textContent = `Origin:  ${character.origin.name}`;
-        let locationInfo = document.createElement("span");
+        const locationInfo = document.createElement("span");
         locationInfo.textContent = `Location:  ${character.location.name}`;
-        let episodesBtn = document.createElement("button");
-        episodesBtn.textContent = "Episodes";
-        let closeBtn = document.createElement("img");
+        const closeBtn = document.createElement("img");
         closeBtn.src =
           "https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/closeBtn.png";
         closeBtn.classList.add("CloseButton");
@@ -253,21 +251,24 @@ let createCharacters = (processedData, sectionToAppend) => {
           typeInfo,
           originInfo,
           locationInfo,
-          episodesBtn,
           closeBtn
         );
-        let sectionFilter = document.querySelector(".filterSection");
-        let cardMoreInfo = document.querySelector(".moreInfoCharacter");
+        const sectionFilter = document.querySelector(".filterSection");
+        const cardMoreInfo = document.querySelector(".moreInfoCharacter");
+        const pagesBtns = document.querySelector(".pagenumbers");
+
         cardMoreInfo.append(containerInfo);
 
         //Al click tambien se oculta la seccion donde se ven las cards generales y se muestra solo la subcard correspondiente
         sectionFilter.classList.toggle("invisible");
         cardMoreInfo.classList.toggle("invisible");
+        pagesBtns.classList.toggle("invisible");
 
         //al hacer click en el btn cerrar, se oculta la subcard y se puede ver nuevamente la seccion de cards generales
         closeBtn.addEventListener("click", () => {
           sectionFilter.classList.toggle("invisible");
           cardMoreInfo.classList.toggle("invisible");
+          pagesBtns.classList.toggle("invisible");
           let containerInfoToDelete = document.querySelector(".containerInfo");
           containerInfoToDelete.remove();
         });
