@@ -10,7 +10,7 @@ body {
 @font-face {
   font-family: "Rick_and_Morty";
   src: local("Rick_and_Morty"),
-    url(https://github.com/aleperz/BOG002-data-lovers/blob/main/Assets/rick_and_morty_font_by_starriichan_d9h2vl6.ttf)
+    url("https://github.com/aleperz/BOG002-data-lovers/blob/main/Assets/rick_and_morty_font_by_starriichan_d9h2vl6.ttf")
       format("ttf");
 }
 
