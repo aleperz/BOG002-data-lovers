@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { filterData, sortData } from "./data.js";
 import data from "./data/rickandmorty/rickandmorty.js";
