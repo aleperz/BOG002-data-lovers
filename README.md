@@ -31,14 +31,25 @@ _En la pagina web inplementamos una barra lateral de filtrado, responsive en la 
 
 ### Prototipo de Alta fidelidad Inicial
 
-![prototipoHQ1](https://raw.githubusercontent.com/AngelitaT319/BOG002-card-validation/piloto/src/img/Desktop%20-%201.png "Prototipo Desktop Alta Fidelidad")
+![prototipoHQ1](https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/Prot_Inicial_desktop.png "Prototipo Desktop Alta Fidelidad")
+
+![prototipoHQ2](https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/Prot_Inicial_Mobile1.png "Prototipo Mobile Alta Fidelidad")
+
+![prototipoHQ3](https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/Prot_Inicial_Mobile.png "Prototipo Mobile Alta Fidelidad2")
 
 https://www.figma.com/file/StLli4zUtAcmrY1OMWsIpV/RickandMorty?node-id=5%3A6
 
 ### Prototipo de Alta fidelidad Final
 
-![FinalHQ1](https://raw.githubusercontent.com/AngelitaT319/BOG002-card-validation/piloto/src/img/PAltaFid.png "Web Final Home Alta Fidelidad")
-![FinalHQ2](https://raw.githubusercontent.com/AngelitaT319/BOG002-card-validation/piloto/src/img/PAltaFid2.png "Web final Index Alta Fidelidad")
+![FinalHQ1](https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/Prot_final_desktop.png "Web Final Desktop Alta Fidelidad")
+
+![FinalHQ2](https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/Prot_final_mobile.png "Web final Mobile Alta Fidelidad")
+
+![FinalHQ3](https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/Prot_final_mobile_burgermenu.png "Web final Mobile BurgerMenu Alta Fidelidad")
+
+![FinalHQ4](https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/Prot_final_mobile_filtro.png "Web final Mobile Filtros Alta Fidelidad")
+
+![FinalHQ5](https://raw.githubusercontent.com/aleperz/BOG002-data-lovers/main/Assets/Prot_final_mobile_chartsEpisode.png "Web final Mobile Episodes-Charts Fidelidad")
 
 ## 3. Objetivos de aprendizaje
 
