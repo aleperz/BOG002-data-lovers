@@ -194,7 +194,13 @@ ul.origins {
     justify-content: center;
   }
   section.filterSection div {
+    width: 100px;
+    height: 140px;
     margin: 2px;
+  }
+  section.filterSection div img {
+    width: 100px;
+    height: 100px;
   }
   .img_logo2 {
     width: 60%;
