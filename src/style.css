@@ -391,6 +391,8 @@ li img {
   width: 100%;
   justify-content: center;
   flex-wrap: wrap;
+  transform: scale(1.2);
+  transition-duration: 0.4s;
 }
 
 .containerInfo {
@@ -405,6 +407,8 @@ li img {
   background-color: #2a4a65;
   margin-bottom: 20px;
   position: relative;
+  transform: scale(1.1);
+  transition-duration: 0.4s;
 }
 .containerInfo button {
   width: 80px;
